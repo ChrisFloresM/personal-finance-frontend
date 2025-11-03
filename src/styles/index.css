@@ -1,5 +1,60 @@
 @import '../../node_modules/tailwindcss';
 
 @theme {
+    /* Font family */
+    --font-public-sans: "Public Sans", sans-serif;
 
+    /* Colors */
+    /* Beige */
+    --color-beige-500: #98908B;
+    --color-beige-100: #F8F4F0;
+
+    /* Grey */
+    --color-grey-900: #201F24;
+    --color-grey-500: #696868;
+    --color-grey-300: #B3B3B3;
+    --color-grey-100: #F2F2F2;
+
+    /* Others */
+    --color-green: #277C68;
+    --color-yellow: #F2CDAC;
+    --color-cyan: #82C9D7;
+    --color-navy: #626070;
+    --color-red: #C94736;
+    --color-purple-strong: #826CB0;
+    --color-purple-light: #AF81BA;
+    --color-turquoise: #597C7C;
+    --color-brown: #93674F;
+    --color-magenta: #934F6F;
+    --color-blue: #3F82B2;
+    --color-navy-grey: #97A0AC;
+    --color-army-green: #7F9161;
+    --color-gold: #CAB361;
+    --color-orange: #BE6C49;
+
+    /* Typography */
+    --text-preset-1: 2rem; /* bold */
+    --leading-preset-1: 120%;
+
+    --text-preset-2: 1.25rem; /* bold */
+    --leading-preset-2: 120%;
+
+    --text-preset-3: 1rem; /* bold */
+    --leading-preset-3: 150%;
+
+    --text-preset-4: 0.875rem; /* bold / normal */
+    --leading-preset-4: 150%;
+
+    --text-preset-5: 0.75rem; /* bold / normal */
+    --leading-preset-5: 150%;
+
+    /* Spacing */
+    --space-50: 0.25rem;
+    --space-100: 1rem;
+    --space-150: 0.75rem;
+    --space-200: 1rem;
+    --space-250: 1.25rem;
+    --space-300: 1.5rem;
+    --space-400: 2rem;
+    --space-500: 2.5rem;
 }
