@@ -49,12 +49,12 @@
     --leading-preset-5: 150%;
 
     /* Spacing */
-    --space-50: 0.25rem;
-    --space-100: 1rem;
-    --space-150: 0.75rem;
-    --space-200: 1rem;
-    --space-250: 1.25rem;
-    --space-300: 1.5rem;
-    --space-400: 2rem;
-    --space-500: 2.5rem;
+    --spacing-50: 0.25rem;
+    --spacing-100: 1rem;
+    --spacing-150: 0.75rem;
+    --spacing-200: 1rem;
+    --spacing-250: 1.25rem;
+    --spacing-300: 1.5rem;
+    --spacing-400: 2rem;
+    --spacing-500: 2.5rem;
 }
