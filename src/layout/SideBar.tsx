@@ -1,10 +1,24 @@
 import Navigation from "./navigation/Navigation.tsx";
+import MinimizeButton from "./MinimizeButton.tsx";
+import { useState } from "react";
+import Logo from "./Logo.tsx";
 
 function SideBar() {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  function toggleCollapsed() {
+    setIsCollapsed(!isCollapsed);
+  }
+
   return (
-    <aside className="bg-grey-900 fixed right-0 bottom-0 w-full rounded-t-[8px] px-300 pt-100">
-      <p className="hidden lg:block">logo placeholder</p>
-      <Navigation />
+    /* prettier-ignore */
+    <aside className="
+    bg-grey-900 fixed bottom-0 w-full flex-col gap-300 rounded-t-[8px] px-300 pt-100
+    lg:static lg:flex lg:min-h-dvh lg:w-auto lg:flex-col lg:rounded-l-[0] lg:rounded-r-[16px] lg:p-0
+    ">
+      <Logo isCollapsed={isCollapsed}/>
+      <Navigation isCollapsed={isCollapsed} />
+      <MinimizeButton isCollapsed={isCollapsed} onClick={toggleCollapsed}/>
     </aside>
   );
 }

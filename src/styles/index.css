@@ -58,3 +58,15 @@
     --spacing-400: 2rem;
     --spacing-500: 2.5rem;
 }
+
+.btnHoverActiveStates {
+    @apply bg-white text-green after:w-full after:absolute after:h-[4px] after:bg-green after:bottom-0 after:content-[""] lg:after:w-[4px] lg:after:h-full lg:after:left-0;
+}
+
+.navBtn {
+    @apply relative;
+ }
+
+.navBtn:hover {
+    @apply bg-white text-green after:w-full after:absolute after:h-[4px] after:bg-green after:bottom-0 after:content-[""] lg:after:w-[4px] lg:after:h-full lg:after:left-0
+}

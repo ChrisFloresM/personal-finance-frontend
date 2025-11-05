@@ -5,22 +5,40 @@ import IconNavBudgets from "../../components/Icons/IconNavBudgets.tsx";
 import IconNavPots from "../../components/Icons/IconNavPots.tsx";
 import IconNavBills from "../../components/Icons/IconNavBills.tsx";
 
-function Navigation() {
+interface INavigationProps {
+  isCollapsed: boolean;
+}
+
+function Navigation({ isCollapsed }: INavigationProps) {
   return (
-    <nav className="flex bg-red-500">
-      <NavigationItem text="Overview">
+    <nav
+      className={`flex flex-1 md:justify-between lg:flex-col lg:justify-start ${isCollapsed ? "lg:pr-100" : "lg:pr-300"} `}
+    >
+      <NavigationItem text="Overview" to="/" isCollapsed={isCollapsed}>
         <IconNavOverview size={24} />
       </NavigationItem>
-      <NavigationItem text="Transactions">
+
+      <NavigationItem
+        text="Transactions"
+        to="/transactions"
+        isCollapsed={isCollapsed}
+      >
         <IconNavTransactions size={24} />
       </NavigationItem>
-      <NavigationItem text="Budgets">
+
+      <NavigationItem text="Budgets" to="/budgets" isCollapsed={isCollapsed}>
         <IconNavBudgets size={24} />
       </NavigationItem>
-      <NavigationItem text="Pots">
+
+      <NavigationItem text="Pots" to="/pots" isCollapsed={isCollapsed}>
         <IconNavPots size={24} />
       </NavigationItem>
-      <NavigationItem text="Recurring bills">
+
+      <NavigationItem
+        text="Recurring bills"
+        to="/recurring-bills"
+        isCollapsed={isCollapsed}
+      >
         <IconNavBills size={24} />
       </NavigationItem>
     </nav>
