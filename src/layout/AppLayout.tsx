@@ -5,9 +5,9 @@ import { Outlet } from "react-router";
 
 function AppLayout() {
   return (
-    <div className="flex">
+    <div className="bg-beige-100 flex min-h-dvh">
       <SideBar />
-      <div className="flex-1 bg-green-200 px-200 py-100">
+      <div className="flex-1 space-y-400 px-200 py-300">
         <Header />
         <Main>
           <Outlet />

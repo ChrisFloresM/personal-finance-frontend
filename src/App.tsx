@@ -1,54 +1,24 @@
 import AppLayout from "./layout/AppLayout.tsx";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
+import Overview from "./pages/Overview.tsx";
+import Transactions from "./pages/Transactions.tsx";
+import Budgets from "./pages/Budgets.tsx";
+import Pots from "./pages/Pots.tsx";
+import RecurringBills from "./pages/RecurringBills.tsx";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
-        <Route index element={<Overview />} handle={{ title: "Overview" }} />
-        <Route
-          path="/transactions"
-          element={<Transactions />}
-          handle={{ title: "Transactions" }}
-        />
-        <Route
-          path="/budgets"
-          element={<Budgets />}
-          handle={{ title: "Budgets" }}
-        />
-        <Route path="/pots" element={<Pots />} handle={{ title: "Pots" }} />
-        <Route
-          path="/recurring-bills"
-          element={<RecurringBills />}
-          handle={{ title: "Recurring" + " Bills" }}
-        />
+        <Route index element={<Navigate to="/overview" />} />
+        <Route path="/overview" element={<Overview />} />
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/budgets" element={<Budgets />} />
+        <Route path="/pots" element={<Pots />} />
+        <Route path="/recurring-bills" element={<RecurringBills />} />
       </Route>
     </Routes>
   );
-}
-
-function Overview() {
-  return (
-    <div className="inline-flex w-auto outline-4 outline-amber-500">
-      <p className="w-[500px] outline-1 outline-cyan-950">Some text</p>
-    </div>
-  );
-}
-
-function Transactions() {
-  return <div>Transactions</div>;
-}
-
-function Budgets() {
-  return <div>Budgets</div>;
-}
-
-function Pots() {
-  return <div>Pots</div>;
-}
-
-function RecurringBills() {
-  return <div>Recurring bills</div>;
 }
 
 export default App;

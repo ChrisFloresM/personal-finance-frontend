@@ -14,6 +14,9 @@ function MinimizeButton({ isCollapsed, onClick }: IMinimizeButtonProps) {
     <button
       onClick={onClick}
       className="group text-grey-300 mb-300 hidden items-center gap-200 px-400 py-200 transition-colors duration-200 hover:cursor-pointer hover:text-white lg:flex"
+      type="button"
+      aria-controls="nav-menu"
+      aria-expanded={!isCollapsed}
     >
       <div
         className={`transition-all duration-200 ${isCollapsed ? "rotate-180" : "rotate-0"}`}

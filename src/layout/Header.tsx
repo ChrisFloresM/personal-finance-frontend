@@ -10,11 +10,13 @@ function Header() {
     "/recurring-bills": "Recurring Bills",
   } as const;
 
-  const currentTitle = titles[location.pathname] || "overview";
+  const currentTitle = titles[location.pathname] || "Overview";
 
   return (
     <header>
-      <p>{currentTitle}</p>
+      <p className="text-grey-900 text-preset-1 leading-preset-1 font-bold">
+        {currentTitle}
+      </p>
     </header>
   );
 }

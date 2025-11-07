@@ -12,6 +12,7 @@ interface INavigationProps {
 function Navigation({ isCollapsed }: INavigationProps) {
   return (
     <nav
+      id="nav-menu"
       className={`flex flex-1 md:justify-between lg:flex-col lg:justify-start ${isCollapsed ? "lg:pr-100" : "lg:pr-300"} `}
     >
       <NavigationItem text="Overview" to="/" isCollapsed={isCollapsed}>
