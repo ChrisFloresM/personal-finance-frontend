@@ -1,5 +1,7 @@
+import SearchAndFilter from "../features/transactions/SearchAndFilter.tsx";
+
 function Transactions() {
-  return <div className="bg-white">Transactions</div>;
+  return <SearchAndFilter />;
 }
 
 export default Transactions;
