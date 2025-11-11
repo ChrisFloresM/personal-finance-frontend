@@ -1,7 +1,7 @@
 import SearchAndFilter from "../features/transactions/SearchAndFilter.tsx";
 import TransactionsTable from "../features/transactions/TransactionsTable.tsx";
 
-function Transactions() {
+function UserTransactions() {
   return (
     <section className="flex flex-col gap-300">
       <SearchAndFilter />
@@ -10,4 +10,4 @@ function Transactions() {
   );
 }
 
-export default Transactions;
+export default UserTransactions;
