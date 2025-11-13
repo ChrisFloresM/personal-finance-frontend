@@ -13,7 +13,7 @@ function SideBar() {
   return (
     /* prettier-ignore */
     <aside className="
-    bg-grey-900 fixed bottom-0 w-full flex-col gap-300 rounded-t-[8px] px-300 pt-100
+    bg-grey-900 fixed z-10 bottom-0 w-full flex-col gap-300 rounded-t-[8px] px-300 pt-100
     lg:static lg:flex lg:min-h-dvh lg:w-auto lg:flex-col lg:rounded-l-[0] lg:rounded-r-[16px] lg:p-0
     ">
       <Logo isCollapsed={isCollapsed}/>

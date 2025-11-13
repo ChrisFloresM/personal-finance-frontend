@@ -1,22 +1,8 @@
-import { useLocation } from "react-router";
-function Header() {
-  const location = useLocation();
-
-  const titles: Record<string, string> = {
-    "/": "Overview",
-    "/transactions": "Transactions",
-    "/budgets": "Budgets",
-    "/pots": "Pots",
-    "/recurring-bills": "Recurring Bills",
-  } as const;
-
-  const currentTitle = titles[location.pathname] || "Overview";
-
+import type { PropsWithChildren } from "react";
+function Header({ children }: PropsWithChildren) {
   return (
-    <header>
-      <p className="text-grey-900 text-preset-1 leading-preset-1 font-bold">
-        {currentTitle}
-      </p>
+    <header className="text-grey-900 text-preset-1 leading-preset-1 flex cursor-pointer items-center justify-between font-bold">
+      {children}
     </header>
   );
 }
