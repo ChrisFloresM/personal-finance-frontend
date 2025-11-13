@@ -1,13 +1,17 @@
 import Header from "../layout/Header.tsx";
-import AddButton from "../components/AddButton.tsx";
 import Main from "../layout/Main.tsx";
+import ModalButton from "../components/ModalButton.tsx";
 
 function Budgets() {
   return (
     <>
       <Header>
         <h1>Budgets</h1>
-        <AddButton onClick={() => {}}>+Add New Budget</AddButton>
+        <div>
+          <ModalButton buttonTitle="+Add New Budget">
+            <p>Add new Budget</p>
+          </ModalButton>
+        </div>
       </Header>
       <Main></Main>
     </>

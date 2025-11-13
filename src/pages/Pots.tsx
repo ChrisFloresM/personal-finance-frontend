@@ -1,15 +1,21 @@
-import AddButton from "../components/AddButton.tsx";
 import Header from "../layout/Header.tsx";
-import Main from "../layout/Main.tsx";
+import ModalButton from "../components/ModalButton.tsx";
+import PotList from "../features/pots/PotList.tsx";
 
 function Pots() {
   return (
     <>
       <Header>
         <h1>Pots</h1>
-        <AddButton onClick={() => {}}>+Add New Pot</AddButton>
+        <div>
+          <ModalButton buttonTitle="+Add New Pot" variation="primary">
+            <p>Add new Pot</p>
+          </ModalButton>
+        </div>
       </Header>
-      <Main></Main>
+      <main>
+        <PotList />
+      </main>
     </>
   );
 }
