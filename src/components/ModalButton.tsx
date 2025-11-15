@@ -1,4 +1,5 @@
 import { type PropsWithChildren, useState } from "react";
+import IconCloseModal from "./Icons/IconCloseModal.tsx";
 
 export type TVariation = "primary" | "secondary";
 
@@ -44,14 +45,17 @@ function ModalButton({
         {buttonTitle}
       </button>
       {isOpen && (
-        <div className="fixed inset-0 z-10 flex h-full w-full cursor-default items-center justify-center bg-black/50">
-          <div className="flex h-1/2 w-1/2 flex-col items-center justify-center rounded-[8px] bg-white">
+        <div
+          className="fixed inset-0 z-10 flex h-full w-full cursor-default items-center justify-center bg-black/50"
+          onClick={handleClose}
+        >
+          <div className="relative flex h-1/2 w-1/2 flex-col items-center justify-center rounded-[12px] bg-white p-400">
             <button
-              className="hover:cursor-pointer"
+              className="hover:text-grey-500 absolute top-400 right-400 hover:cursor-pointer"
               type="button"
               onClick={handleClose}
             >
-              X
+              <IconCloseModal size={32} />
             </button>
             {children}
           </div>
