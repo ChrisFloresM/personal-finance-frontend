@@ -1,5 +1,6 @@
+import Summary from "../features/overview/Summary.tsx";
 import Header from "../layout/Header.tsx";
-import Main from "../layout/Main.tsx";
+import Content from "../features/overview/Content.tsx";
 
 function Overview() {
   return (
@@ -7,7 +8,10 @@ function Overview() {
       <Header>
         <h1>Overview</h1>
       </Header>
-      <Main></Main>
+      <main className="space-y-400">
+        <Summary />
+        <Content />
+      </main>
     </>
   );
 }

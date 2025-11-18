@@ -9,3 +9,10 @@ export function formatDate(isoString: string): string {
 export function formatAmount(amount: number): string {
   return `${amount < 0 ? "-" : ""}$${Math.abs(amount).toFixed(2)}`;
 }
+
+export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }).format(amount);
+}

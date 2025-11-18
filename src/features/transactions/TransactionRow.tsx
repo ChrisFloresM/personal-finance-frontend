@@ -1,5 +1,5 @@
 import { formatAmount, formatDate } from "../../utils/utils.ts";
-import type { Itransaction } from "./TransactionsTableBody.tsx";
+import type { Itransaction } from "./TransactionsTable.tsx";
 
 function TransactionRow({ transaction }: { transaction: Itransaction }) {
   const { avatar, name, date, category, amount } = transaction;

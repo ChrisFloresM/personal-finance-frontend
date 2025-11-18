@@ -3,6 +3,7 @@ import PotStats from "./PotStats.tsx";
 import PotActions from "./PotActions.tsx";
 
 export interface IPotItem {
+  id: number;
   name: string;
   target: number;
   total: number;
