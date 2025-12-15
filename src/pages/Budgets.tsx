@@ -8,7 +8,7 @@ function Budgets() {
       <Header>
         <h1>Budgets</h1>
         <div>
-          <ModalButton buttonTitle="+Add New Budget">
+          <ModalButton buttonTitle="+Add New Budget" variation="primary">
             <p>Add new Budget</p>
           </ModalButton>
         </div>
