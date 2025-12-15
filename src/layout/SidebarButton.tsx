@@ -1,6 +1,6 @@
 import IconMinimizeMenu from "../components/Icons/IconMinimizeMenu.tsx";
 
-interface IMinimizeButtonProps {
+interface ISidebarButtonProps {
   isCollapsed: boolean;
   onClick: () => void;
 }
@@ -9,7 +9,7 @@ const textBaseClass =
   "text-preset-3 text-grey-300 font-bold transition-all duration-200 text-nowrap text-start" +
   " group-hover:text-white overflow-hidden";
 
-function MinimizeButton({ isCollapsed, onClick }: IMinimizeButtonProps) {
+function SidebarButton({ isCollapsed, onClick }: ISidebarButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -32,4 +32,4 @@ function MinimizeButton({ isCollapsed, onClick }: IMinimizeButtonProps) {
   );
 }
 
-export default MinimizeButton;
+export default SidebarButton;

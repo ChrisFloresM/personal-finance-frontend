@@ -30,9 +30,10 @@ function NavigationItem({
   isCollapsed,
 }: PropsWithChildren<INavigationItemProps>) {
   return (
-    /* prettier-ignore */
     <NavLink
-      className={({ isActive }) => `${baseNavLinkClass} ${isActive ? "btnHoverActiveStates" : ""}`}
+      className={({ isActive }) =>
+        `${baseNavLinkClass} ${isActive ? "btnHoverActiveStates" : ""}`
+      }
       type="button"
       aria-label={`Navigation item to move to ${text}`}
       to={to}
