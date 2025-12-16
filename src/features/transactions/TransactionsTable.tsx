@@ -1,9 +1,8 @@
 import TransactionsTableHead from "./TransactionTableHead.tsx";
 import TransactionsTableBody from "./TransactionsTableBody.tsx";
-import { useQuery } from "@tanstack/react-query";
-import { getTransactions } from "../../services/apiTransactions.ts";
 import ErrorMessage from "../../components/ErrorMessage.tsx";
 import LoadingSpinner from "../../components/LoadingSpinner.tsx";
+import useTransactions from "./useTransactions.ts";
 
 export interface Itransaction {
   avatar: string;
@@ -15,14 +14,7 @@ export interface Itransaction {
 }
 
 function TransactionsTable() {
-  const {
-    isLoading,
-    data: transactions,
-    error,
-  } = useQuery({
-    queryKey: ["transactions"],
-    queryFn: getTransactions,
-  });
+  const { isLoading, transactions, error } = useTransactions();
 
   if (isLoading) {
     return <LoadingSpinner />;

@@ -19,6 +19,7 @@ function Auth0ProviderWithNavigate({ children }: PropsWithChildren) {
       clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: `${window.location.origin}/callback`,
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
       }}
       onRedirectCallback={onRedirectCallback}
     >
