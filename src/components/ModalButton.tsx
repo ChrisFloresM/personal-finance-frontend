@@ -45,13 +45,10 @@ function ModalButton({
         {buttonTitle}
       </button>
       {isOpen && (
-        <div
-          className="fixed inset-0 z-10 flex h-full w-full cursor-default items-center justify-center bg-black/50"
-          onClick={handleClose}
-        >
-          <div className="relative flex h-1/2 w-1/2 flex-col items-center justify-center rounded-[12px] bg-white p-400">
+        <div className="fixed inset-0 z-10 flex h-full w-full cursor-default items-center justify-center bg-black/50 px-250">
+          <div className="relative flex w-full max-w-[560px] flex-col items-center justify-center rounded-xl bg-white px-250 py-300">
             <button
-              className="hover:text-grey-500 absolute top-400 right-400 hover:cursor-pointer"
+              className="hover:text-grey-500 absolute top-300 right-250 hover:cursor-pointer"
               type="button"
               onClick={handleClose}
             >

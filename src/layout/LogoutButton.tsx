@@ -21,7 +21,7 @@ function LogoutButton() {
       type="button"
       aria-label="logout button"
       onClick={generateToken}
-      className="hover:text-grey-500 flex cursor-pointer flex-col transition-colors duration-200"
+      className="hover:text-grey-500 flex cursor-pointer flex-col items-center justify-center transition-colors duration-200"
     >
       <TbLogout2 />
       <span className="text-preset-5 leading-preset-5">Log out</span>

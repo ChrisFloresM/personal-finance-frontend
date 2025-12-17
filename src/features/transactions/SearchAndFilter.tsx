@@ -2,61 +2,12 @@ import IconSortMobile from "../../components/Icons/IconSortMobile.tsx";
 import IconFilterMobile from "../../components/Icons/IconFilterMobile.tsx";
 import DropdownSelect from "../../components/DropdownSelect.tsx";
 import SearchBar from "../../components/SearchBar.tsx";
+import { categories, sortOptions } from "../../utils/SortAndCategories.ts";
 
 export interface ISelectOption {
   label: string;
   value: string;
 }
-
-const sortOptions: ISelectOption[] = [
-  {
-    label: "Latest",
-    value: "latest",
-  },
-  {
-    label: "Oldest",
-    value: "oldest",
-  },
-  {
-    label: "A to Z",
-    value: "AtoZ",
-  },
-  {
-    label: "Highest",
-    value: "highest",
-  },
-  {
-    label: "Lowest",
-    value: "lowest",
-  },
-];
-
-const filterOptions: ISelectOption[] = [
-  {
-    label: "All Transactions",
-    value: "all",
-  },
-  {
-    label: "Bills",
-    value: "bills",
-  },
-  {
-    label: "Groceries",
-    value: "groceries",
-  },
-  {
-    label: "Dinning Out",
-    value: "dinningOut",
-  },
-  {
-    label: "Transportation",
-    value: "transportation",
-  },
-  {
-    label: "Personal Care",
-    value: "personalCare",
-  },
-];
 
 function SearchAndFilter() {
   return (
@@ -69,7 +20,13 @@ function SearchAndFilter() {
           <DropdownSelect label="Sort by" options={sortOptions}>
             <IconSortMobile size={20} />
           </DropdownSelect>
-          <DropdownSelect label="Categories" options={filterOptions}>
+          <DropdownSelect
+            label="Categories"
+            options={[
+              { label: "All Transactions", value: "all" },
+              ...categories,
+            ]}
+          >
             <IconFilterMobile size={20} />
           </DropdownSelect>
         </div>
