@@ -1,9 +1,9 @@
 import type { FieldError, UseFormRegister } from "react-hook-form";
-import type { Itransaction } from "../../features/transactions/TransactionsTable.tsx";
+import type { ItransactionForm } from "../../features/transactions/form/TransactionForm.tsx";
 
 interface IBasicInputProps {
   placeholder?: string;
-  register: UseFormRegister<Itransaction>;
+  register: UseFormRegister<ItransactionForm>;
   error: FieldError | undefined;
 }
 

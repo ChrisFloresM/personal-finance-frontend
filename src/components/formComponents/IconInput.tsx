@@ -1,10 +1,10 @@
 import { PiCurrencyDollarBold } from "react-icons/pi";
 import type { FieldError, UseFormRegister } from "react-hook-form";
-import type { Itransaction } from "../../features/transactions/TransactionsTable.tsx";
+import type { ItransactionForm } from "../../features/transactions/form/TransactionForm.tsx";
 
 interface IIconInputProps {
   placeholder?: string;
-  register: UseFormRegister<Itransaction>;
+  register: UseFormRegister<ItransactionForm>;
   error: FieldError | undefined;
 }
 
@@ -16,7 +16,17 @@ function IconInput({ placeholder, register, error }: IIconInputProps) {
       </span>
       <div className="relative">
         <input
-          {...register("amount", { required: true })}
+          {...register("amount", {
+            required: "This field is required",
+            setValueAs: (value) => parseFloat(value) || 0,
+            pattern: {
+              value: /^\d+(\.\d{1,2})?$/,
+              message: "Please enter a valid amount (e.g., 10.50)",
+            },
+            validate: {
+              positive: (value) => value > 0 || "Value must be greather than 0",
+            },
+          })}
           className="text-grey-900 text-preset-4 focus:border-grey-900 leading-preset-4 placeholder-beige-500 border-beige-500 w-full rounded-lg border py-150 pr-250 pl-500 font-light focus:outline-none"
           type="text"
           placeholder={placeholder}
@@ -27,7 +37,7 @@ function IconInput({ placeholder, register, error }: IIconInputProps) {
       </div>
       {error && (
         <span className="text-preset-5 leading-preset-5 text-red-500">
-          This field is required
+          {error.message}
         </span>
       )}
     </label>

@@ -39,7 +39,7 @@ function DropdownInput<T extends FieldValues>({
             Category:
           </label>
           <Listbox value={field.value} onChange={field.onChange}>
-            <ListboxButton className="border-beige-500 text-beige-500 text-preset-4 leading-preset-4 hover:text-grey-900 focus:text-grey-900 focus:border-grey-900 hidden w-full appearance-none items-center justify-between rounded-lg border px-250 py-150 hover:cursor-pointer focus:outline-none md:flex md:min-w-44">
+            <ListboxButton className="border-beige-500 text-beige-500 text-preset-4 leading-preset-4 hover:text-grey-900 focus:text-grey-900 focus:border-grey-900 flex w-full appearance-none items-center justify-between rounded-lg border px-250 py-150 hover:cursor-pointer focus:outline-none md:min-w-44">
               <span>
                 {options.find((opt) => opt.value === field.value)?.label ||
                   options[0].label}

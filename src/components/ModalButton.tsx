@@ -1,5 +1,7 @@
-import { type PropsWithChildren, useState } from "react";
-import IconCloseModal from "./Icons/IconCloseModal.tsx";
+import { type PropsWithChildren } from "react";
+import { useModalContext } from "../context/useModalContext.ts";
+import ModalWindow from "./ModalWindow.tsx";
+import ModalContextProvider from "../context/ModalContextProvider.tsx";
 
 export type TVariation = "primary" | "secondary";
 
@@ -18,15 +20,21 @@ function ModalButton({
   variation,
   children,
 }: PropsWithChildren<IAddButtonProps>) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  return (
+    <ModalContextProvider>
+      <ControlButton buttonTitle={buttonTitle} variation={variation}>
+        {children}
+      </ControlButton>
+    </ModalContextProvider>
+  );
+}
 
-  function handleOpen() {
-    setIsOpen(true);
-  }
-
-  function handleClose() {
-    setIsOpen(false);
-  }
+function ControlButton({
+  buttonTitle,
+  variation,
+  children,
+}: PropsWithChildren<IAddButtonProps>) {
+  const { isOpen, handleOpen } = useModalContext();
 
   const variations: IVariations = {
     primary: "bg-grey-900 hover:bg-grey-500 text-white",
@@ -40,26 +48,12 @@ function ModalButton({
       <button
         type="button"
         onClick={handleOpen}
-        className={`${variations[variation || "primary"]} text-preset-4 leading-preset-4 w-full rounded-[8px] p-200 font-bold transition-colors duration-200 hover:cursor-pointer`}
+        className={`${variations[variation || "primary"]} text-preset-4 leading-preset-4 w-full rounded-lg p-200 font-bold transition-colors duration-200 hover:cursor-pointer`}
       >
         {buttonTitle}
       </button>
-      {isOpen && (
-        <div className="fixed inset-0 z-10 flex h-full w-full cursor-default items-center justify-center bg-black/50 px-250">
-          <div className="relative flex w-full max-w-[560px] flex-col items-center justify-center rounded-xl bg-white px-250 py-300">
-            <button
-              className="hover:text-grey-500 absolute top-300 right-250 hover:cursor-pointer"
-              type="button"
-              onClick={handleClose}
-            >
-              <IconCloseModal size={32} />
-            </button>
-            {children}
-          </div>
-        </div>
-      )}
+      {isOpen && <ModalWindow>{children}</ModalWindow>}
     </>
   );
 }
-
 export default ModalButton;

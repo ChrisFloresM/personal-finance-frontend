@@ -17,7 +17,7 @@ function UserTransactions() {
           </ModalButton>
         </div>
       </Header>
-      <main className="relative max-w-full flex-1 rounded-[12px] bg-white p-300">
+      <main className="relative max-w-full flex-1 rounded-xl bg-white p-300">
         <div className="flex flex-col gap-300">
           <SearchAndFilter />
           <TransactionsTable />
