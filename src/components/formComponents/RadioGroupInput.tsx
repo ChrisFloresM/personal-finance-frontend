@@ -48,7 +48,7 @@ function RadioGroupInput<T extends FieldValues>({
             className="flex w-1/2 items-center justify-between"
           >
             {options.map((type) => (
-              <Field className="flex items-center gap-200">
+              <Field className="flex items-center gap-200" key={type.value}>
                 <Label className="text-preset-4 leading-preset-4 data-disabled:opacity-50">
                   {type.label}
                 </Label>

@@ -61,8 +61,9 @@ function TransactionForm({
   });
 
   const { mutate, isPending } = useCreateTransaction();
+
   const { mutate: mutateEdit, isPending: isEditPending } = useEditTransaction(
-    transactionData?.id ?? 0,
+    transactionData?.transactionId ?? 0,
   );
 
   const { handleClose: closeModal } = useModalContext();

@@ -55,7 +55,7 @@ export async function editTransaction(
   const token = await tokenPromise;
 
   try {
-    const response: AxiosResponse<Itransaction[]> = await axios.post(
+    const response: AxiosResponse<Itransaction[]> = await axios.put(
       `${API_ENDPOINT}/${transactionId}`,
       createTransactionPayload(data),
       {
