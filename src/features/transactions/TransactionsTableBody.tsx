@@ -9,7 +9,7 @@ function TransactionsTableBody({
   transactionsData,
 }: ITransactionsTableBodyProps) {
   return (
-    <tbody className="divide-grey-100 divide-y-1">
+    <tbody className="divide-grey-100 divide-y">
       {transactionsData.map((transaction) => (
         <TransactionRow key={transaction.name} transaction={transaction} />
       ))}

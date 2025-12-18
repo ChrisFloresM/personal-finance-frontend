@@ -1,11 +1,13 @@
 import { formatAmount, formatDate } from "../../utils/utils.ts";
 import type { Itransaction } from "./TransactionsTable.tsx";
+import TransactionForm from "./form/TransactionForm.tsx";
+import ModalButtonOption from "../../components/ModalButtonOption.tsx";
 
 function TransactionRow({ transaction }: { transaction: Itransaction }) {
   const { avatar, name, date, category, amount } = transaction;
 
   return (
-    <tr className="[&_td]:text-preset-5 [&_td]:leading-preset-5 [&_td]:text-beige-500 grid grid-cols-6 items-center gap-x-300 py-150 [&_td]:text-start [&_td]:font-normal [&_td:last-child]:text-end">
+    <tr className="[&_td]:text-preset-5 [&_td]:leading-preset-5 [&_td]:text-beige-500 grid grid-cols-7 items-center gap-x-300 py-150 [&_td]:text-start [&_td]:font-normal">
       <td className="col-span-4 flex items-center gap-150 md:col-span-3">
         <div className="w-[32px]">
           <img
@@ -25,11 +27,19 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
       <td className="col-span-1 hidden md:block">{formatDate(date)}</td>
       <td className="col-span-2 flex flex-col gap-50 md:col-span-1">
         <span
-          className={`${amount < 0 ? "text-grey-900" : "text-green"} text-preset-4 leading-preset-4 font-bold`}
+          className={`${amount < 0 ? "text-grey-900" : "text-green"} text-preset-4 leading-preset-4 text-end font-bold`}
         >
           {formatAmount(amount)}
         </span>
-        <span className="md:hidden">{formatDate(date)}</span>
+        <span className="text-[10px] md:hidden">{formatDate(date)}</span>
+      </td>
+      <td className="flex flex-col justify-end gap-200 md:flex-row">
+        <ModalButtonOption type="edit">
+          <TransactionForm transactionData={transaction} isEditing />
+        </ModalButtonOption>
+        <ModalButtonOption type="delete">
+          <div>Delete form</div>
+        </ModalButtonOption>
       </td>
     </tr>
   );

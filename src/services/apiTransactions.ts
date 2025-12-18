@@ -46,3 +46,25 @@ export async function registerTransaction(
     throw new Error(`Error fetching the data: ${axiosError.message}`);
   }
 }
+
+export async function editTransaction(
+  transactionId: number,
+  data: ItransactionForm,
+  tokenPromise: Promise<string>,
+): Promise<Itransaction[]> {
+  const token = await tokenPromise;
+
+  try {
+    const response: AxiosResponse<Itransaction[]> = await axios.post(
+      `${API_ENDPOINT}/${transactionId}`,
+      createTransactionPayload(data),
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    throw new Error(`Error fetching the data: ${axiosError.message}`);
+  }
+}

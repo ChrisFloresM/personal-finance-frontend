@@ -14,6 +14,7 @@ import RadioGroupInput from "../../../components/formComponents/RadioGroupInput.
 import { useCreateTransaction } from "../useCreateTransaction.ts";
 import toast from "react-hot-toast";
 import { useModalContext } from "../../../context/useModalContext.ts";
+import { useEditTransaction } from "../useEditTransaction.ts";
 
 export interface ItransactionForm extends Itransaction {
   transactionType: "income" | "expense";
@@ -29,7 +30,15 @@ const transactionTypes: ItransactionType[] = [
   { label: "Expense", value: "expense" },
 ];
 
-function TransactionForm() {
+interface ITransactionFormProps {
+  isEditing?: boolean;
+  transactionData?: Itransaction;
+}
+
+function TransactionForm({
+  isEditing = false,
+  transactionData,
+}: ITransactionFormProps) {
   const {
     register,
     handleSubmit,
@@ -37,27 +46,52 @@ function TransactionForm() {
     formState: { errors },
   } = useForm<ItransactionForm>({
     defaultValues: {
-      date: new Date().toISOString().split("T")[0],
-      recurring: false,
-      transactionType: transactionTypes[1].value,
+      avatar: transactionData?.avatar ?? avatars[0].src,
+      name: transactionData?.name ?? "",
+      category: transactionData?.category ?? categories[0].value,
+      date: transactionData?.date ?? new Date().toISOString().split("T")[0],
+      amount: transactionData?.amount ? Math.abs(transactionData.amount) : 0.0,
+      recurring: transactionData?.recurring ?? false,
+      transactionType: transactionData?.amount
+        ? transactionData.amount >= 0
+          ? "income"
+          : "expense"
+        : transactionTypes[1].value,
     },
   });
 
   const { mutate, isPending } = useCreateTransaction();
+  const { mutate: mutateEdit, isPending: isEditPending } = useEditTransaction(
+    transactionData?.id ?? 0,
+  );
+
   const { handleClose: closeModal } = useModalContext();
 
   const onSubmit: SubmitHandler<ItransactionForm> = (data) => {
+    if (isEditing) {
+      mutateEdit(data, {
+        onSuccess: successCallback,
+        onError: errorCallback,
+      });
+
+      return;
+    }
+
     mutate(data, {
-      onSuccess: () => {
-        closeModal();
-        toast.success("Transaction successfully created!");
-      },
-      onError: (error) => {
-        closeModal();
-        toast.error(error.message);
-      },
+      onSuccess: successCallback,
+      onError: errorCallback,
     });
   };
+
+  function successCallback() {
+    closeModal();
+    toast.success("Transaction successfully created!");
+  }
+
+  function errorCallback(error: Error) {
+    closeModal();
+    toast.error(error.message);
+  }
 
   return (
     <FormTemplate
@@ -96,7 +130,9 @@ function TransactionForm() {
         control={control}
         defaultValue={avatars[0].src}
       />
-      <SubmitButton isPending={isPending}>Add Transaction</SubmitButton>
+      <SubmitButton isPending={isPending || isEditPending || false}>
+        Add Transaction
+      </SubmitButton>
     </FormTemplate>
   );
 }

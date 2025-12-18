@@ -5,6 +5,7 @@ import LoadingSpinner from "../../components/LoadingSpinner.tsx";
 import useTransactions from "./useTransactions.ts";
 
 export interface Itransaction {
+  id: number;
   avatar: string;
   name: string;
   category: string;
