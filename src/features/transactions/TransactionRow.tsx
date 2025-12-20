@@ -2,9 +2,10 @@ import { formatAmount, formatDate } from "../../utils/utils.ts";
 import type { Itransaction } from "./TransactionsTable.tsx";
 import TransactionForm from "./form/TransactionForm.tsx";
 import ModalButtonOption from "../../components/ModalButtonOption.tsx";
+import DeleteForm from "../../components/DeleteForm.tsx";
 
 function TransactionRow({ transaction }: { transaction: Itransaction }) {
-  const { avatar, name, date, category, amount } = transaction;
+  const { transactionId, avatar, name, date, category, amount } = transaction;
 
   return (
     <tr className="[&_td]:text-preset-5 [&_td]:leading-preset-5 [&_td]:text-beige-500 grid grid-cols-7 items-center gap-x-300 py-150 [&_td]:text-start [&_td]:font-normal">
@@ -38,7 +39,7 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
           <TransactionForm transactionData={transaction} isEditing />
         </ModalButtonOption>
         <ModalButtonOption type="delete">
-          <div>Delete form</div>
+          <DeleteForm itemName="transaction" transactionId={transactionId} />
         </ModalButtonOption>
       </td>
     </tr>
