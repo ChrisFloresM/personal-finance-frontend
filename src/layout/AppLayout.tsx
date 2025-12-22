@@ -9,7 +9,7 @@ function AppLayout() {
   return (
     <div className="bg-beige-100 flex min-h-dvh">
       <SideBar />
-      <div className="flex flex-1 flex-col space-y-400 px-200 py-300 lg:px-500">
+      <div className="flex flex-1 flex-col space-y-400 px-200 py-200 pb-20 lg:pb-200">
         <Outlet />
       </div>
     </div>

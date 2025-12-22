@@ -2,19 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import { getTransactions } from "../../services/apiTransactions.ts";
 import useAccessToken from "../../hooks/useAccessToken.ts";
 
-function useTransactions() {
+function useTransactions(pageNumber: number) {
   const { getToken } = useAccessToken();
 
   const {
     isLoading,
-    data: transactions,
+    data: transactionsPage,
     error,
   } = useQuery({
-    queryKey: ["transactions"],
-    queryFn: () => getTransactions(getToken()),
+    queryKey: ["transactions", pageNumber],
+    queryFn: () => getTransactions(pageNumber, getToken()),
   });
 
-  return { isLoading, transactions, error };
+  return { isLoading, transactionsPage, error };
 }
 
 export default useTransactions;

@@ -9,7 +9,7 @@ import {
   Radio,
   RadioGroup,
 } from "@headlessui/react";
-import { avatars } from "./form/avatars.ts";
+import { avatars } from "./avatars.ts";
 import {
   type Control,
   Controller,

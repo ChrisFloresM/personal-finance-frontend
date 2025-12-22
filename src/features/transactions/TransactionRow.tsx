@@ -10,7 +10,7 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
   return (
     <tr className="[&_td]:text-preset-5 [&_td]:leading-preset-5 [&_td]:text-beige-500 grid grid-cols-7 items-center gap-x-300 py-150 [&_td]:text-start [&_td]:font-normal">
       <td className="col-span-4 flex items-center gap-150 md:col-span-3">
-        <div className="w-[32px]">
+        <div className="w-[32px] shrink-0">
           <img
             src={avatar}
             alt="An avatar of the related transaction"
@@ -18,7 +18,7 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
           />
         </div>
         <div className="flex flex-col gap-50">
-          <span className="text-preset-4 text-grey-900 leading-preset-4 font-bold">
+          <span className="text-preset-4 text-grey-900 leading-preset-4 max-w-[120px] truncate font-bold">
             {name}
           </span>
           <span className="md:hidden">{category}</span>

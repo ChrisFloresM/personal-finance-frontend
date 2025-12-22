@@ -3,19 +3,22 @@ import type { AxiosError, AxiosResponse } from "axios";
 import type { Itransaction } from "../features/transactions/TransactionsTable.tsx";
 import type { ItransactionForm } from "../features/transactions/form/TransactionForm.tsx";
 import { createTransactionPayload } from "../utils/transformers.ts";
+import type { ITransactionPages } from "../pages/UserTransactions.tsx";
 
 const API_BASE = import.meta.env.VITE_API_BASE;
 const API_ENDPOINT = `${API_BASE}/transactions`;
 
 export async function getTransactions(
+  pageNumber: number,
   tokenPromise: Promise<string>,
-): Promise<Itransaction[]> {
+): Promise<ITransactionPages> {
   const token = await tokenPromise;
 
   try {
-    const response: AxiosResponse<Itransaction[]> = await axios.get(
+    const response: AxiosResponse<ITransactionPages> = await axios.get(
       API_ENDPOINT,
       {
+        params: { page: (pageNumber - 1).toString() },
         headers: { Authorization: `Bearer ${token}` },
       },
     );

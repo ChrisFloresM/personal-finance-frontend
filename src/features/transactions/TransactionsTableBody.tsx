@@ -11,7 +11,10 @@ function TransactionsTableBody({
   return (
     <tbody className="divide-grey-100 divide-y">
       {transactionsData.map((transaction) => (
-        <TransactionRow key={transaction.name} transaction={transaction} />
+        <TransactionRow
+          key={transaction.transactionId}
+          transaction={transaction}
+        />
       ))}
     </tbody>
   );

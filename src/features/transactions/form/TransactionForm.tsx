@@ -1,4 +1,4 @@
-import AvatarPicker from "../AvatarPicker.tsx";
+import AvatarPicker from "./AvatarPicker.tsx";
 import BasicInput from "../../../components/formComponents/BasicInput.tsx";
 import IconInput from "../../../components/formComponents/IconInput.tsx";
 import DropdownInput from "../../../components/formComponents/DropdownInput.tsx";

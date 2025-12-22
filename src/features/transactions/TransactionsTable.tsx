@@ -2,7 +2,6 @@ import TransactionsTableHead from "./TransactionTableHead.tsx";
 import TransactionsTableBody from "./TransactionsTableBody.tsx";
 import ErrorMessage from "../../components/ErrorMessage.tsx";
 import LoadingSpinner from "../../components/LoadingSpinner.tsx";
-import useTransactions from "./useTransactions.ts";
 
 export interface Itransaction {
   transactionId: number;
@@ -14,9 +13,17 @@ export interface Itransaction {
   recurring: boolean;
 }
 
-function TransactionsTable() {
-  const { isLoading, transactions, error } = useTransactions();
+interface ITransactionTableProps {
+  isLoading: boolean;
+  transactions: Itransaction[];
+  error: Error | null;
+}
 
+function TransactionsTable({
+  isLoading,
+  transactions,
+  error,
+}: ITransactionTableProps) {
   if (isLoading) {
     return <LoadingSpinner />;
   }
