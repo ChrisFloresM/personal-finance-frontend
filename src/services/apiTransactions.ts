@@ -10,6 +10,7 @@ const API_ENDPOINT = `${API_BASE}/transactions`;
 
 export async function getTransactions(
   pageNumber: number,
+  sortBy: string,
   tokenPromise: Promise<string>,
 ): Promise<ITransactionPages> {
   const token = await tokenPromise;
@@ -18,7 +19,10 @@ export async function getTransactions(
     const response: AxiosResponse<ITransactionPages> = await axios.get(
       API_ENDPOINT,
       {
-        params: { page: (pageNumber - 1).toString() },
+        params: {
+          page: (pageNumber - 1).toString(),
+          sortBy: sortBy,
+        },
         headers: { Authorization: `Bearer ${token}` },
       },
     );

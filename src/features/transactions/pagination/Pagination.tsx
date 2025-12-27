@@ -8,13 +8,9 @@ interface IPaginationProps {
   totalPages: number;
 }
 
-/*const MAX_RESULTS_PER_PAGE = 10;*/
-
 function Pagination({ totalPages }: IPaginationProps) {
-  const [searchParams, setSearchParams] = useSearchParams(); //localhost:5137/transactions?page=1
+  const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = Number(searchParams.get("page") ?? 1);
-
-  /*  const totalPages = Math.ceil(totalResults / MAX_RESULTS_PER_PAGE);*/
 
   function updatePage(newPage: number) {
     setSearchParams((searchParams) => {

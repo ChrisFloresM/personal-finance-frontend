@@ -3,9 +3,19 @@ import type { Itransaction } from "./TransactionsTable.tsx";
 import TransactionForm from "./form/TransactionForm.tsx";
 import ModalButtonOption from "../../components/ModalButtonOption.tsx";
 import DeleteForm from "../../components/DeleteForm.tsx";
+import { categories } from "../../utils/SortAndCategories.ts";
+
+const categoryMap: Record<string, string> = categories.reduce(
+  (acc, cat) => {
+    acc[cat.value] = cat.label;
+    return acc;
+  },
+  {} as Record<string, string>,
+);
 
 function TransactionRow({ transaction }: { transaction: Itransaction }) {
   const { transactionId, avatar, name, date, category, amount } = transaction;
+  const categoryLabel = categoryMap[category];
 
   return (
     <tr className="[&_td]:text-preset-5 [&_td]:leading-preset-5 [&_td]:text-beige-500 grid grid-cols-7 items-center gap-x-300 py-150 [&_td]:text-start [&_td]:font-normal">
@@ -18,13 +28,13 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
           />
         </div>
         <div className="flex flex-col gap-50">
-          <span className="text-preset-4 text-grey-900 leading-preset-4 max-w-[120px] truncate font-bold">
+          <span className="text-preset-4 text-grey-900 leading-preset-4 max-w-[120px] truncate font-bold md:max-w-full">
             {name}
           </span>
-          <span className="md:hidden">{category}</span>
+          <span className="md:hidden">{categoryLabel}</span>
         </div>
       </td>
-      <td className="col-span-1 hidden md:block">{category}</td>
+      <td className="col-span-1 hidden md:block">{categoryLabel}</td>
       <td className="col-span-1 hidden md:block">{formatDate(date)}</td>
       <td className="col-span-2 flex flex-col gap-50 md:col-span-1">
         <span
@@ -45,4 +55,5 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
     </tr>
   );
 }
+
 export default TransactionRow;

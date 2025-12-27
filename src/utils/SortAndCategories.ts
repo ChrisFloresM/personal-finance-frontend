@@ -3,23 +3,23 @@ import type { ISelectOption } from "../features/transactions/SearchAndFilter.tsx
 export const sortOptions: ISelectOption[] = [
   {
     label: "Latest",
-    value: "latest",
+    value: "LATEST",
   },
   {
     label: "Oldest",
-    value: "oldest",
+    value: "OLDEST",
   },
   {
     label: "A to Z",
-    value: "AtoZ",
+    value: "ATOZ",
   },
   {
     label: "Highest",
-    value: "highest",
+    value: "HIGHEST",
   },
   {
     label: "Lowest",
-    value: "lowest",
+    value: "LOWEST",
   },
 ];
 
