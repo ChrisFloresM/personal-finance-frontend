@@ -15,7 +15,6 @@ function SearchAndFilter() {
 
   const sortBy = urlSearchParams.get("sortBy") ?? "LATEST";
   const filterCategory = urlSearchParams.get("category") ?? "ALL";
-  const search = urlSearchParams.get("search") ?? "";
 
   function updateChangeParam(param: string, value: string) {
     setSearchParams((params) => {
