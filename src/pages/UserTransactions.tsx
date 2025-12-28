@@ -17,14 +17,18 @@ export interface ITransactionPages {
 
 function UserTransactions() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get("page");
-  const currentSort = searchParams.get("sortBy");
+  const currentPage = searchParams.get("page") ?? 1;
+  const currentSort = searchParams.get("sortBy") ?? "LATEST";
+  const categoryFilter = searchParams.get("category") ?? "ALL";
+  const searchFilter = searchParams.get("search") ?? "";
 
   let transactions: Itransaction[], totalPages: number;
 
   const { isLoading, transactionsPage, error } = useTransactions(
     currentPage ? Number(currentPage) : 1,
     currentSort ? currentSort : "LATEST",
+    categoryFilter,
+    searchFilter,
   );
 
   if (transactionsPage) {

@@ -6,39 +6,31 @@ import {
   ListboxOption,
   ListboxOptions,
 } from "@headlessui/react";
-import { type PropsWithChildren, useState } from "react";
+import { type PropsWithChildren } from "react";
 import type { ISelectOption } from "../features/transactions/SearchAndFilter.tsx";
-import { useSearchParams } from "react-router";
+import { convertToMap } from "../utils/SortAndCategories.ts";
 
 interface ISelectProps {
   label: string;
   options: ISelectOption[];
+  value: string;
+  handleChange: (value: string) => void;
 }
 
 function DropdownSelect({
   label,
   options,
+  value,
+  handleChange,
   children,
 }: PropsWithChildren<ISelectProps>) {
-  const [selectedOption, setSelectedOption] = useState<ISelectOption>(
-    options[0],
-  );
-  const [, setSearchParams] = useSearchParams();
-
-  function handleChange(option: ISelectOption) {
-    setSelectedOption(option);
-
-    setSearchParams((params) => {
-      params.set("sortBy", option.value);
-      return params;
-    });
-  }
+  const optionsMap = convertToMap(options);
 
   function renderOptions() {
     return options.map((option) => (
       <ListboxOption
         key={option.value}
-        value={option}
+        value={option.value}
         className={({ selected }) =>
           `text-preset-4 text-grey-900 not-first:not-last:py-150 first:pb-150 last:pt-150 hover:cursor-pointer hover:font-bold ${selected ? "font-bold" : ""} `
         }
@@ -55,7 +47,7 @@ function DropdownSelect({
       </label>
 
       {/* Mobile view */}
-      <Listbox value={selectedOption} onChange={handleChange}>
+      <Listbox value={value} onChange={handleChange}>
         <ListboxButton className="md:hidden">{children}</ListboxButton>
         <ListboxOptions
           anchor="bottom"
@@ -66,9 +58,9 @@ function DropdownSelect({
       </Listbox>
 
       {/* Tablet+ view */}
-      <Listbox value={selectedOption} onChange={handleChange}>
+      <Listbox value={value} onChange={handleChange}>
         <ListboxButton className="border-beige-500 text-beige-500 text-preset-4 leading-preset-4 hover:text-grey-900 focus:text-grey-900 focus:border-grey-900 hidden w-full appearance-none items-center justify-between rounded-lg border px-250 py-150 hover:cursor-pointer focus:outline-none md:flex md:min-w-44">
-          <span>{selectedOption.label}</span>
+          <span>{optionsMap[value]}</span>
           <IconCaretDown size={16} />
         </ListboxButton>
         <ListboxOptions

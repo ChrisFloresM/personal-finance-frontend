@@ -11,6 +11,8 @@ const API_ENDPOINT = `${API_BASE}/transactions`;
 export async function getTransactions(
   pageNumber: number,
   sortBy: string,
+  categoryFilter: string,
+  search: string,
   tokenPromise: Promise<string>,
 ): Promise<ITransactionPages> {
   const token = await tokenPromise;
@@ -22,6 +24,8 @@ export async function getTransactions(
         params: {
           page: (pageNumber - 1).toString(),
           sortBy: sortBy,
+          category: categoryFilter,
+          search: search,
         },
         headers: { Authorization: `Bearer ${token}` },
       },

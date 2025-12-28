@@ -65,3 +65,13 @@ export const categories: ISelectOption[] = [
     value: "general",
   },
 ];
+
+export function convertToMap(options: ISelectOption[]): Record<string, string> {
+  return options.reduce(
+    (acc, option) => {
+      acc[option.value] = option.label;
+      return acc;
+    },
+    {} as Record<string, string>,
+  );
+}

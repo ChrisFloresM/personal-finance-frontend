@@ -3,15 +3,9 @@ import type { Itransaction } from "./TransactionsTable.tsx";
 import TransactionForm from "./form/TransactionForm.tsx";
 import ModalButtonOption from "../../components/ModalButtonOption.tsx";
 import DeleteForm from "../../components/DeleteForm.tsx";
-import { categories } from "../../utils/SortAndCategories.ts";
+import { categories, convertToMap } from "../../utils/SortAndCategories.ts";
 
-const categoryMap: Record<string, string> = categories.reduce(
-  (acc, cat) => {
-    acc[cat.value] = cat.label;
-    return acc;
-  },
-  {} as Record<string, string>,
-);
+const categoryMap: Record<string, string> = convertToMap(categories);
 
 function TransactionRow({ transaction }: { transaction: Itransaction }) {
   const { transactionId, avatar, name, date, category, amount } = transaction;

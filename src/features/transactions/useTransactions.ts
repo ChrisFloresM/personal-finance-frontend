@@ -2,7 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { getTransactions } from "../../services/apiTransactions.ts";
 import useAccessToken from "../../hooks/useAccessToken.ts";
 
-function useTransactions(pageNumber: number, sortBy: string) {
+function useTransactions(
+  pageNumber: number,
+  sortBy: string,
+  categoryFilter: string,
+  search: string,
+) {
   const { getToken } = useAccessToken();
 
   const {
@@ -10,8 +15,9 @@ function useTransactions(pageNumber: number, sortBy: string) {
     data: transactionsPage,
     error,
   } = useQuery({
-    queryKey: ["transactions", pageNumber, sortBy],
-    queryFn: () => getTransactions(pageNumber, sortBy, getToken()),
+    queryKey: ["transactions", pageNumber, sortBy, categoryFilter, search],
+    queryFn: () =>
+      getTransactions(pageNumber, sortBy, categoryFilter, search, getToken()),
   });
 
   return { isLoading, transactionsPage, error };
