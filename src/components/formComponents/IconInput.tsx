@@ -1,22 +1,34 @@
 import { PiCurrencyDollarBold } from "react-icons/pi";
-import type { FieldError, UseFormRegister } from "react-hook-form";
-import type { ItransactionForm } from "../../features/transactions/form/TransactionForm.tsx";
+import type {
+  FieldError,
+  FieldPath,
+  FieldValues,
+  UseFormRegister,
+} from "react-hook-form";
 
-interface IIconInputProps {
+interface IIconInputProps<T extends FieldValues> {
+  label: string;
+  name: FieldPath<T>;
   placeholder?: string;
-  register: UseFormRegister<ItransactionForm>;
+  register: UseFormRegister<T>;
   error: FieldError | undefined;
 }
 
-function IconInput({ placeholder, register, error }: IIconInputProps) {
+function IconInput<T extends FieldValues>({
+  label,
+  name,
+  placeholder,
+  register,
+  error,
+}: IIconInputProps<T>) {
   return (
     <label className="flex w-full flex-col gap-50">
       <span className="text-preset-5 leading-preset-5 text-grey-500 block font-bold">
-        Amount:
+        {label}:
       </span>
       <div className="relative">
         <input
-          {...register("amount", {
+          {...register(name, {
             required: "This field is required",
             setValueAs: (value) => parseFloat(value) || 0,
             pattern: {

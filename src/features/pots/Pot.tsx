@@ -18,7 +18,7 @@ function Pot({ pot }: IPotProps) {
   const { name, target, total, theme } = pot;
 
   return (
-    <li className="col-span-1 row-span-1 flex flex-col gap-300 rounded-xl bg-white px-250 py-300">
+    <li className="col-span-1 row-span-1 flex flex-col gap-300 rounded-xl bg-[#d6d3d1] px-250 py-300">
       <PotHeading name={name} theme={theme} />
       <PotStats target={target} total={total} theme={theme} />
       <PotActions />

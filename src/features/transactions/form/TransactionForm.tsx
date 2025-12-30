@@ -101,12 +101,20 @@ function TransactionForm({
       select a representative avatar (or leave the default one)."
       handleSubmit={handleSubmit(onSubmit)}
     >
-      <BasicInput
+      <BasicInput<ItransactionForm>
+        name="name"
+        label="Concept"
         placeholder="Transaction name"
         register={register}
         error={errors.name}
       />
-      <IconInput register={register} error={errors.amount} placeholder="0.00" />
+      <IconInput<ItransactionForm>
+        label="Amount"
+        name="amount"
+        register={register}
+        error={errors.amount}
+        placeholder="0.00"
+      />
       <RadioGroupInput
         name="transactionType"
         control={control}

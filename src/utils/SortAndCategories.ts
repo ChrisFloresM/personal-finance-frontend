@@ -66,6 +66,24 @@ export const categories: ISelectOption[] = [
   },
 ];
 
+export const colors: ISelectOption[] = [
+  { label: "Green", value: "#277C68" },
+  { label: "Yellow", value: "#F2CDAC" },
+  { label: "Cyan", value: "#82C9D7" },
+  { label: "Navy", value: "#626070" },
+  { label: "Red", value: "#C94736" },
+  { label: "Purple (Strong)", value: "#826CB0" },
+  { label: "Purple (Light)", value: "#AF81BA" },
+  { label: "Turquoise", value: "#597C7C" },
+  { label: "Brown", value: "#93674F" },
+  { label: "Magenta", value: "#934F6F" },
+  { label: "Blue", value: "#3F82B2" },
+  { label: "Navy Grey", value: "#97A0AC" },
+  { label: "Army Green", value: "#7F9161" },
+  { label: "Gold", value: "#CAB361" },
+  { label: "Orange", value: "#BE6C49" },
+];
+
 export function convertToMap(options: ISelectOption[]): Record<string, string> {
   return options.reduce(
     (acc, option) => {
