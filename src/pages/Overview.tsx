@@ -8,7 +8,7 @@ function Overview() {
       <Header>
         <h1>Overview</h1>
       </Header>
-      <main className="space-y-400">
+      <main className="flex h-full flex-col gap-400">
         <Summary />
         <Content />
       </main>

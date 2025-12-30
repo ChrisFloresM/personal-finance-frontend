@@ -2,22 +2,19 @@ import PaginationButton from "./PaginationButton.tsx";
 import IconCaretLeft from "../../../components/Icons/IconCaretLeft.tsx";
 import IconCaretRight from "../../../components/Icons/IconCaretRight.tsx";
 import PaginationElementButton from "./PaginationElementButton.tsx";
-import { useSearchParams } from "react-router";
+import { useEffect } from "react";
+import { createButtonArray } from "../../../utils/pagination.ts";
+import { useTransactionsParams } from "../useTransactionsParams.ts";
 
 interface IPaginationProps {
   totalPages: number;
 }
 
 function Pagination({ totalPages }: IPaginationProps) {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = Number(searchParams.get("page") ?? 1);
+  const { currentPage, updateSearchParams } = useTransactionsParams();
 
   function updatePage(newPage: number) {
-    setSearchParams((searchParams) => {
-      searchParams.set("page", newPage.toString());
-
-      return searchParams;
-    });
+    updateSearchParams("page", newPage.toString());
   }
 
   function getNextPage() {
@@ -32,6 +29,19 @@ function Pagination({ totalPages }: IPaginationProps) {
     currentPage,
     totalPages,
   );
+
+  /* Manage the case when an element is deleted and the poage ends empty. This way we return to
+ the previous page (which should be equal to the number of pages */
+  useEffect(() => {
+    if (
+      currentPage &&
+      Number(currentPage) > 1 &&
+      Number(currentPage) > totalPages &&
+      totalPages > 0
+    ) {
+      updateSearchParams("page", totalPages.toString());
+    }
+  }, [currentPage, totalPages, updateSearchParams]);
 
   if (totalPages <= 1) return null;
 
@@ -78,58 +88,6 @@ function Pagination({ totalPages }: IPaginationProps) {
       </PaginationButton>
     </nav>
   );
-}
-
-function createButtonArray(
-  currentPage: number,
-  totalPages: number,
-): (string | number)[] {
-  let leftEllipsis = true;
-  let rightEllipsis = true;
-  const ellipsisThreshold = 3;
-
-  return Array.from({ length: totalPages }, (_, i): string | number => {
-    const pageNumber = i + 1;
-
-    /* 1. Condition 1: Always display first and last page */
-    if (pageNumber === 1 || pageNumber == totalPages) {
-      return pageNumber;
-    }
-
-    /* 2. Condition two. When current page is above threshold, display elements before and after
-     current page */
-    if (
-      currentPage >= ellipsisThreshold &&
-      (pageNumber - 1 === currentPage ||
-        pageNumber === currentPage ||
-        pageNumber + 1 === currentPage)
-    ) {
-      return pageNumber;
-    }
-
-    /* 3. While currentPage is less than the ellispsisThreshold, then display all the pages
-     before the threshold incluse, if not display a single ellipsis */
-    if (pageNumber <= ellipsisThreshold && currentPage < ellipsisThreshold) {
-      return pageNumber;
-    } else if (pageNumber <= ellipsisThreshold && leftEllipsis) {
-      leftEllipsis = false;
-      return "...";
-    }
-
-    /* 4. While currentPage is greather than the totalPages minus the ellipsis threshold,
-     display all the pages after, if not, display a single ellipsis*/
-    if (
-      totalPages - currentPage < ellipsisThreshold - 1 &&
-      pageNumber > totalPages - ellipsisThreshold
-    ) {
-      return pageNumber;
-    } else if (pageNumber > totalPages - ellipsisThreshold && rightEllipsis) {
-      rightEllipsis = false;
-      return "...";
-    }
-
-    return "";
-  });
 }
 
 export default Pagination;

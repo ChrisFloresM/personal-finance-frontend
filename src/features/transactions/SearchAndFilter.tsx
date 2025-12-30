@@ -3,7 +3,7 @@ import IconFilterMobile from "../../components/Icons/IconFilterMobile.tsx";
 import DropdownSelect from "../../components/DropdownSelect.tsx";
 import SearchBar from "../../components/SearchBar.tsx";
 import { categories, sortOptions } from "../../utils/SortAndCategories.ts";
-import { useSearchParams } from "react-router";
+import { useTransactionsParams } from "./useTransactionsParams.ts";
 
 export interface ISelectOption {
   label: string;
@@ -11,17 +11,11 @@ export interface ISelectOption {
 }
 
 function SearchAndFilter() {
-  const [urlSearchParams, setSearchParams] = useSearchParams();
-
-  const sortBy = urlSearchParams.get("sortBy") ?? "LATEST";
-  const filterCategory = urlSearchParams.get("category") ?? "ALL";
-
-  function updateChangeParam(param: string, value: string) {
-    setSearchParams((params) => {
-      params.set(param, value);
-      return params;
-    });
-  }
+  const {
+    currentSort: sortBy,
+    categoryFilter: filterCategory,
+    updateSearchParams,
+  } = useTransactionsParams();
 
   return (
     <div>
@@ -29,7 +23,7 @@ function SearchAndFilter() {
         <div className="flex-1 lg:max-w-[320px]">
           <SearchBar
             updateSearchParam={(value: string) => {
-              updateChangeParam("search", value);
+              updateSearchParams("search", value);
             }}
           />
         </div>
@@ -39,7 +33,7 @@ function SearchAndFilter() {
             options={sortOptions}
             value={sortBy}
             handleChange={(value: string) => {
-              updateChangeParam("sortBy", value);
+              updateSearchParams("sortBy", value);
             }}
           >
             <IconSortMobile size={20} />
@@ -48,7 +42,7 @@ function SearchAndFilter() {
             label="Categories"
             value={filterCategory}
             handleChange={(value: string) =>
-              updateChangeParam("category", value)
+              updateSearchParams("category", value)
             }
             options={[
               { label: "All Transactions", value: "ALL" },

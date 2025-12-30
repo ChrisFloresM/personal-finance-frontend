@@ -6,9 +6,8 @@ import Header from "../layout/Header.tsx";
 import ModalButton from "../components/ModalButton.tsx";
 import TransactionForm from "../features/transactions/form/TransactionForm.tsx";
 import Pagination from "../features/transactions/pagination/Pagination.tsx";
-import { useSearchParams } from "react-router";
 import useTransactions from "../features/transactions/useTransactions.ts";
-import { useEffect } from "react";
+import { useTransactionsParams } from "../features/transactions/useTransactionsParams.ts";
 
 export interface ITransactionPages {
   transactions: Itransaction[];
@@ -16,44 +15,18 @@ export interface ITransactionPages {
 }
 
 function UserTransactions() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = searchParams.get("page") ?? 1;
-  const currentSort = searchParams.get("sortBy") ?? "LATEST";
-  const categoryFilter = searchParams.get("category") ?? "ALL";
-  const searchFilter = searchParams.get("search") ?? "";
-
-  let transactions: Itransaction[], totalPages: number;
+  const { currentPage, currentSort, categoryFilter, searchFilter } =
+    useTransactionsParams();
 
   const { isLoading, transactionsPage, error } = useTransactions(
-    currentPage ? Number(currentPage) : 1,
-    currentSort ? currentSort : "LATEST",
+    Number(currentPage),
+    currentSort,
     categoryFilter,
     searchFilter,
   );
 
-  if (transactionsPage) {
-    transactions = transactionsPage.transactions;
-    totalPages = transactionsPage.totalPages;
-  } else {
-    transactions = [];
-    totalPages = 0;
-  }
-
-  /* Manage the case when an element is deleted and the poage ends empty. This way we return to
-   the previous page (which should be equal to the number of pages */
-  useEffect(() => {
-    if (
-      currentPage &&
-      Number(currentPage) > 1 &&
-      Number(currentPage) > totalPages &&
-      totalPages > 0
-    ) {
-      setSearchParams((searchParams) => {
-        searchParams.set("page", totalPages.toString());
-        return searchParams;
-      });
-    }
-  }, [currentPage, setSearchParams, totalPages]);
+  const transactions = transactionsPage?.transactions ?? [];
+  const totalPages = transactionsPage?.totalPages ?? 0;
 
   return (
     <>
