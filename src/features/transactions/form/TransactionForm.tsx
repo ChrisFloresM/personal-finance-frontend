@@ -61,7 +61,6 @@ function TransactionForm({
   });
 
   const { mutate, isPending } = useCreateTransaction();
-
   const { mutate: mutateEdit, isPending: isEditPending } = useEditTransaction(
     transactionData?.transactionId ?? 0,
   );
