@@ -1,43 +1,37 @@
 import { type PropsWithChildren } from "react";
 import { useModalContext } from "../context/useModalContext.ts";
-import { useDeleteTransaction } from "../features/transactions/useDeleteTransaction.ts";
-import toast from "react-hot-toast";
 import FormTemplate from "./formComponents/FormTemplate.tsx";
 import * as React from "react";
 
-interface IdeleteForm {
+export interface IdeleteForm {
   itemName: string;
-  transactionId: number;
+  mutateFn: () => void;
+  isPending: boolean;
 }
 
-function DeleteForm({ transactionId }: PropsWithChildren<IdeleteForm>) {
+function DeleteForm({
+  itemName,
+  mutateFn,
+  isPending,
+}: PropsWithChildren<IdeleteForm>) {
   const { handleClose } = useModalContext();
-  const { mutate, isPending } = useDeleteTransaction(transactionId);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    mutate(undefined, {
-      onSuccess: () => {
-        handleClose();
-        toast.success("Transaction successfully deleted!");
-      },
-      onError: () => {
-        handleClose();
-        toast.error("Transaction couldn't be deleted");
-      },
-    });
+    mutateFn();
+    handleClose();
   }
 
   return (
     <FormTemplate
-      formName="Delete transaction?"
+      formName={`Delete ${itemName}?`}
       formDescription="Are you sure you want to delete this item?"
       handleSubmit={handleSubmit}
     >
       <button
-        className={`${isPending ? "bg-yellow" : "bg-red"} text-preset-4 rounded-lg p-200 font-bold text-white`}
+        className={`${isPending ? "bg-yellow" : "bg-red"} text-preset-4 rounded-lg p-200 font-bold text-white hover:cursor-pointer`}
         type="submit"
-        aria-label="Delete transaction item"
+        aria-label={`Delete ${itemName} item`}
         disabled={isPending}
       >
         Yes, Confirm Deletion

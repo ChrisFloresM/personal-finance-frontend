@@ -9,18 +9,27 @@ import { useModalContext } from "../context/useModalContext.ts";
 import ModalWindow from "./ModalWindow.tsx";
 import { useState } from "react";
 import PotForm from "../features/pots/form/PotForm.tsx";
+import DeleteForm, { type IdeleteForm } from "./DeleteForm.tsx";
 
-function ModalPopoverOptionsButton() {
+function ModalPopoverOptionsButton({
+  itemName,
+  mutateFn,
+  isPending,
+}: IdeleteForm) {
   return (
     <ModalContextProvider>
-      <PopoverOptionsButton />
+      <PopoverOptionsButton
+        itemName={itemName}
+        mutateFn={mutateFn}
+        isPending={isPending}
+      />
     </ModalContextProvider>
   );
 }
 
 type TOptionsButton = "edit" | "delete";
 
-function PopoverOptionsButton() {
+function PopoverOptionsButton({ itemName, mutateFn, isPending }: IdeleteForm) {
   const { isOpen, handleOpen } = useModalContext();
   const [modalType, setModalType] = useState<TOptionsButton>("edit");
 
@@ -53,7 +62,15 @@ function PopoverOptionsButton() {
       </Popover>
       {isOpen && (
         <ModalWindow>
-          {modalType === "edit" ? <PotForm /> : <div>Delete</div>}
+          {modalType === "edit" ? (
+            <PotForm />
+          ) : (
+            <DeleteForm
+              itemName={itemName}
+              mutateFn={mutateFn}
+              isPending={isPending}
+            />
+          )}
         </ModalWindow>
       )}
     </>

@@ -36,3 +36,26 @@ export async function registerPot(
     throw new Error(`Error fetching the data: ${axiosError.message}`);
   }
 }
+
+export async function deletePot(
+  potId: number,
+  tokenPromise: Promise<string>,
+): Promise<void> {
+  const token = await tokenPromise;
+
+  try {
+    const response: AxiosResponse<void> = await axios.delete(
+      `${API_ENDPOINT}/${potId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    throw new Error(`Error deleting the item: ${axiosError.message}`);
+  }
+}

@@ -1,11 +1,28 @@
 import ModalPopoverOptionsButton from "../../components/ModalPopoverOptionsButton.tsx";
+import type { IPotItem } from "./Pot.tsx";
+import toast from "react-hot-toast";
+import { useDeletePot } from "./useDeltePots.ts";
 
 interface IPotHeadingProps {
+  pot: IPotItem;
   name: string;
   theme: string;
 }
 
-function PotHeading({ name, theme }: IPotHeadingProps) {
+function PotHeading({ name, theme, pot }: IPotHeadingProps) {
+  const { mutate, isPending } = useDeletePot(pot.id);
+
+  function mutateFn() {
+    mutate(undefined, {
+      onSuccess: () => {
+        toast.success("Pot successfully deleted!");
+      },
+      onError: () => {
+        toast.error("Pot couldn't be deleted");
+      },
+    });
+  }
+
   return (
     <div className="flex w-full justify-between">
       <h2 className="flex items-center gap-200">
@@ -17,7 +34,11 @@ function PotHeading({ name, theme }: IPotHeadingProps) {
           {name}
         </span>
       </h2>
-      <ModalPopoverOptionsButton />
+      <ModalPopoverOptionsButton
+        itemName={`"${pot.name}"`}
+        mutateFn={mutateFn}
+        isPending={isPending}
+      />
     </div>
   );
 }

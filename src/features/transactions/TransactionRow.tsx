@@ -4,12 +4,27 @@ import TransactionForm from "./form/TransactionForm.tsx";
 import ModalButtonOption from "../../components/ModalButtonOption.tsx";
 import DeleteForm from "../../components/DeleteForm.tsx";
 import { categories, convertToMap } from "../../utils/SortAndCategories.ts";
+import { useDeleteTransaction } from "./useDeleteTransaction.ts";
+import toast from "react-hot-toast";
 
 const categoryMap: Record<string, string> = convertToMap(categories);
 
 function TransactionRow({ transaction }: { transaction: Itransaction }) {
   const { transactionId, avatar, name, date, category, amount } = transaction;
   const categoryLabel = categoryMap[category];
+
+  const { mutate, isPending } = useDeleteTransaction(transactionId);
+
+  function mutateFn() {
+    mutate(undefined, {
+      onSuccess: () => {
+        toast.success("Transaction successfully deleted!");
+      },
+      onError: () => {
+        toast.error("Transaction couldn't be deleted");
+      },
+    });
+  }
 
   return (
     <tr className="[&_td]:text-preset-5 [&_td]:leading-preset-5 [&_td]:text-beige-500 grid grid-cols-7 items-center gap-x-300 py-150 [&_td]:text-start [&_td]:font-normal">
@@ -43,7 +58,11 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
           <TransactionForm transactionData={transaction} isEditing />
         </ModalButtonOption>
         <ModalButtonOption type="delete">
-          <DeleteForm itemName="transaction" transactionId={transactionId} />
+          <DeleteForm
+            itemName="transaction"
+            mutateFn={mutateFn}
+            isPending={isPending}
+          />
         </ModalButtonOption>
       </td>
     </tr>
