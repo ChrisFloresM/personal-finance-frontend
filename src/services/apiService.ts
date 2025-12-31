@@ -2,12 +2,12 @@ import axios, { type AxiosError, type AxiosResponse } from "axios";
 
 export const API_BASE = import.meta.env.VITE_API_BASE;
 
-/* T: type to be received by the server, TParams: Type to be used by the params */
-export async function getItems<TBody, TParams>(
+/* TResponse: type to be received by the server, TParams: Type to be used by the params */
+export async function getItems<TResponse, TParams>(
   apiEndpoint: string,
   params: TParams,
   tokenPromise: Promise<string>,
-): Promise<TBody> {
+): Promise<TResponse[]> {
   const token = await tokenPromise;
 
   try {
@@ -22,12 +22,12 @@ export async function getItems<TBody, TParams>(
   }
 }
 
-/* TForm is the received form type and J is the item type body to be sent to the server */
-export async function addItem<TForm, TBody>(
+/* TBody is the type to be sent to the server and TResponse is the type of the response */
+export async function addItem<TBody, TResponse>(
   apiEndpoint: string,
-  data: TForm,
+  data: TBody,
   tokenPromise: Promise<string>,
-): Promise<TBody> {
+): Promise<TResponse> {
   const token = await tokenPromise;
 
   try {
@@ -41,15 +41,15 @@ export async function addItem<TForm, TBody>(
   }
 }
 
-export async function editItem<TForm, TBody>(
+export async function editItem<TBody, TResponse>(
   apiEndpoint: string,
-  data: TForm,
+  data: TBody,
   tokenPromise: Promise<string>,
-): Promise<TBody[]> {
+): Promise<TResponse[]> {
   const token = await tokenPromise;
 
   try {
-    const response: AxiosResponse<TBody[]> = await axios.put(
+    const response: AxiosResponse<TResponse[]> = await axios.put(
       apiEndpoint,
       data,
       {
