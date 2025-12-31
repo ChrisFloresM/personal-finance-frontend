@@ -1,3 +1,5 @@
+import ModalPopoverOptionsButton from "../../components/ModalPopoverOptionsButton.tsx";
+
 interface IPotHeadingProps {
   name: string;
   theme: string;
@@ -15,7 +17,7 @@ function PotHeading({ name, theme }: IPotHeadingProps) {
           {name}
         </span>
       </h2>
-      <button>options</button>
+      <ModalPopoverOptionsButton />
     </div>
   );
 }
