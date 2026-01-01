@@ -7,7 +7,7 @@ export async function getItems<TResponse, TParams>(
   apiEndpoint: string,
   params: TParams,
   tokenPromise: Promise<string>,
-): Promise<TResponse[]> {
+): Promise<TResponse> {
   const token = await tokenPromise;
 
   try {

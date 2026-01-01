@@ -1,9 +1,12 @@
 import { useModalContext } from "../context/useModalContext.ts";
-import type { PropsWithChildren } from "react";
 import IconCloseModal from "./Icons/IconCloseModal.tsx";
 
-function ModalWindow({ children }: PropsWithChildren) {
-  const { handleClose } = useModalContext();
+function ModalWindow() {
+  const { content, handleClose } = useModalContext();
+
+  if (content === null) {
+    return;
+  }
 
   return (
     <div className="fixed inset-0 z-10 flex h-full w-full cursor-default items-center justify-center bg-black/50 px-250">
@@ -15,7 +18,7 @@ function ModalWindow({ children }: PropsWithChildren) {
         >
           <IconCloseModal size={32} />
         </button>
-        {children}
+        {content}
       </div>
     </div>
   );

@@ -10,6 +10,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import LogIn from "./pages/LogIn.tsx";
 import PublicLayout from "./layout/PublicLayout.tsx";
 import AuthCallback from "./features/auth/AuthCallback.tsx";
+import ModalContextProvider from "./context/ModalContextProvider.tsx";
+import ModalWindow from "./components/ModalWindow.tsx";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -22,21 +24,24 @@ const queryClient = new QueryClient({
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Routes>
-        <Route path="/" element={<PublicLayout />}>
-          <Route index element={<LogIn />} />
-          <Route path="callback" element={<AuthCallback />} />
-        </Route>
+      <ModalContextProvider>
+        <Routes>
+          <Route path="/" element={<PublicLayout />}>
+            <Route index element={<LogIn />} />
+            <Route path="callback" element={<AuthCallback />} />
+          </Route>
 
-        <Route path="/" element={<ProtectedLayout />}>
-          <Route index element={<Navigate to="overview" />} />
-          <Route path="overview" element={<Overview />} />
-          <Route path="transactions" element={<UserTransactions />} />
-          <Route path="budgets" element={<Budgets />} />
-          <Route path="pots" element={<Pots />} />
-          <Route path="recurring-bills" element={<RecurringBills />} />
-        </Route>
-      </Routes>
+          <Route path="/" element={<ProtectedLayout />}>
+            <Route index element={<Navigate to="overview" />} />
+            <Route path="overview" element={<Overview />} />
+            <Route path="transactions" element={<UserTransactions />} />
+            <Route path="budgets" element={<Budgets />} />
+            <Route path="pots" element={<Pots />} />
+            <Route path="recurring-bills" element={<RecurringBills />} />
+          </Route>
+        </Routes>
+        <ModalWindow />
+      </ModalContextProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );

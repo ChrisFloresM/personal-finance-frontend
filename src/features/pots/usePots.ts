@@ -19,7 +19,7 @@ function usePots() {
   } = useQuery({
     queryKey: ["pots"],
     queryFn: () =>
-      getItems<IPotItem, IPotParms>(API_ENDPOINT, params, getToken()),
+      getItems<IPotItem[], IPotParms>(API_ENDPOINT, params, getToken()),
   });
 
   return { isLoading, pots, error };
