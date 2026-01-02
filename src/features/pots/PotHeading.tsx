@@ -1,7 +1,11 @@
-import ModalPopoverOptionsButton from "../../components/ModalPopoverOptionsButton.tsx";
+import PopoverMenu from "../../components/PopoverMenu.tsx";
 import type { IPotItem } from "./Pot.tsx";
 import toast from "react-hot-toast";
 import { useDeletePot } from "./useDeltePots.ts";
+import PopoverMenuOption from "../../components/PopoverMenuOption.tsx";
+import { useModalContext } from "../../context/useModalContext.ts";
+import PotForm from "./form/PotForm.tsx";
+import DeleteForm from "../../components/DeleteForm.tsx";
 
 interface IPotHeadingProps {
   pot: IPotItem;
@@ -11,6 +15,7 @@ interface IPotHeadingProps {
 
 function PotHeading({ name, theme, pot }: IPotHeadingProps) {
   const { mutate, isPending } = useDeletePot(pot.id);
+  const { handleOpen } = useModalContext();
 
   function mutateFn() {
     mutate(undefined, {
@@ -21,6 +26,20 @@ function PotHeading({ name, theme, pot }: IPotHeadingProps) {
         toast.error("Pot couldn't be deleted");
       },
     });
+  }
+
+  function handleOpenEdit() {
+    handleOpen(<PotForm isEditing potData={pot} />);
+  }
+
+  function handleOpenDelete() {
+    handleOpen(
+      <DeleteForm
+        itemName={`"${pot.name}"`}
+        mutateFn={mutateFn}
+        isPending={isPending}
+      />,
+    );
   }
 
   return (
@@ -34,11 +53,18 @@ function PotHeading({ name, theme, pot }: IPotHeadingProps) {
           {name}
         </span>
       </h2>
-      <ModalPopoverOptionsButton
-        itemName={`"${pot.name}"`}
-        mutateFn={mutateFn}
-        isPending={isPending}
-      />
+      <PopoverMenu>
+        <PopoverMenuOption
+          type="normal"
+          content="Edit"
+          onClick={handleOpenEdit}
+        />
+        <PopoverMenuOption
+          type="danger"
+          content="Delete"
+          onClick={handleOpenDelete}
+        />
+      </PopoverMenu>
     </div>
   );
 }

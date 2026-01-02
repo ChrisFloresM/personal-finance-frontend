@@ -8,6 +8,8 @@ import SubmitButton from "../../../components/formComponents/SubmitButton.tsx";
 import { useCreatePot } from "../useCreatePot.ts";
 import { useModalContext } from "../../../context/useModalContext.ts";
 import toast from "react-hot-toast";
+import type { IPotItem } from "../Pot.tsx";
+import { useEditPot } from "../useEditPot.ts";
 
 export interface IPotForm {
   name: string;
@@ -16,7 +18,12 @@ export interface IPotForm {
   theme: string;
 }
 
-function PotForm() {
+interface IPotFormProps {
+  isEditing?: boolean;
+  potData?: IPotItem;
+}
+
+function PotForm({ isEditing = false, potData }: IPotFormProps) {
   const {
     register,
     handleSubmit,
@@ -24,16 +31,28 @@ function PotForm() {
     formState: { errors },
   } = useForm<IPotForm>({
     defaultValues: {
-      total: 0,
+      name: potData?.name ?? "",
+      target: potData?.target ?? 0,
+      total: potData?.total ?? 0,
+      theme: potData?.theme ?? colors[0].value,
     },
   });
-
-  const { mutate, isPending } = useCreatePot();
-
   const { handleClose: closeModal } = useModalContext();
 
+  const { mutate, isPending } = useCreatePot();
+  const { mutate: mutateEdit, isPending: pendingEdit } = useEditPot(
+    potData?.id ?? 0,
+  );
+
   const onSubmit: SubmitHandler<IPotForm> = (data) => {
-    mutate(data, {
+    if (!isEditing) {
+      mutate(data, {
+        onSuccess: successCallback,
+        onError: errorCallback,
+      });
+    }
+
+    mutateEdit(data, {
       onSuccess: successCallback,
       onError: errorCallback,
     });
@@ -51,7 +70,7 @@ function PotForm() {
 
   return (
     <FormTemplate
-      formName="Add new Pot"
+      formName={`${isEditing ? "Edit pot" : "Add new pot"}`}
       formDescription="Create a pot to set savings targets. These can help keep you on track as you save for special purchases."
       handleSubmit={handleSubmit(onSubmit)}
     >
@@ -76,7 +95,9 @@ function PotForm() {
         defaultValue={colors[0].value}
         isColorMenu
       />
-      <SubmitButton isPending={isPending || false}>Add Pot</SubmitButton>
+      <SubmitButton isPending={isPending || pendingEdit || false}>
+        {isEditing ? "Edit pot" : "Add pot"}
+      </SubmitButton>
     </FormTemplate>
   );
 }
