@@ -1,4 +1,5 @@
 import ProgressBar from "./ProgressBar.tsx";
+import ProgressBarSummary from "./ProgressBarSummary.tsx";
 
 export interface IPotStatsProps {
   target: number;
@@ -7,6 +8,8 @@ export interface IPotStatsProps {
 }
 
 function PotStats({ target, total, theme }: IPotStatsProps) {
+  const potProgress = (total / target) * 100;
+
   return (
     <>
       <dl className="flex items-center justify-between">
@@ -17,7 +20,10 @@ function PotStats({ target, total, theme }: IPotStatsProps) {
           ${total.toFixed(2)}
         </dd>
       </dl>
-      <ProgressBar total={total} target={target} theme={theme} />
+      <div className="space-y-200">
+        <ProgressBar progress={potProgress} color={theme} />
+        <ProgressBarSummary progress={potProgress} target={target} />
+      </div>
     </>
   );
 }

@@ -21,7 +21,7 @@ function Pot({ pot }: IPotProps) {
     <li className="col-span-1 row-span-1 flex flex-col gap-300 rounded-xl bg-[#d6d3d1] px-250 py-300 duration-200">
       <PotHeading name={name} theme={theme} pot={pot} />
       <PotStats target={target} total={total} theme={theme} />
-      <PotActions />
+      <PotActions potData={pot} />
     </li>
   );
 }
