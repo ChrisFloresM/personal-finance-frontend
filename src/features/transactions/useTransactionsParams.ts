@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router";
+import { useCallback } from "react";
 
 export interface ITransactionsParams {
   currentPage: number;
@@ -18,12 +19,20 @@ export function useTransactionsParams(): ITransactionsParams {
   const categoryFilter = searchParams.get("category") ?? "ALL";
   const searchFilter = searchParams.get("search") ?? "";
 
-  function updateSearchParams(param: string, value: string) {
-    setSearchParams((params) => {
-      params.set(param, value);
-      return params;
-    });
-  }
+  const updateSearchParams = useCallback(
+    (param: string, value: string) => {
+      if (searchParams.get(param) === value) {
+        return;
+      }
+
+      setSearchParams((params) => {
+        const newParams = new URLSearchParams(params);
+        newParams.set(param, value);
+        return newParams;
+      });
+    },
+    [searchParams, setSearchParams],
+  );
 
   return {
     currentPage,

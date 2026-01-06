@@ -3,6 +3,8 @@ import useTransactions from "../../transactions/useTransactions.ts";
 import LoadingSpinner from "../../../components/LoadingSpinner.tsx";
 import ErrorMessage from "../../../components/ErrorMessage.tsx";
 import TransactionItem from "./TransactionItem.tsx";
+import useCategories from "../../../hooks/useCategories.ts";
+import { getCategoryId } from "../../../utils/SortAndCategories.ts";
 
 const MAX_ELEMENTS = 4;
 
@@ -10,10 +12,12 @@ function TransactionsList() {
   const { currentPage, currentSort, categoryFilter, searchFilter } =
     useTransactionsParams();
 
+  const { data: categories } = useCategories();
+
   const { isLoading, transactionsPage, error } = useTransactions(
     Number(currentPage),
     currentSort,
-    categoryFilter,
+    getCategoryId(categories ?? [], categoryFilter),
     searchFilter,
   );
 

@@ -8,6 +8,8 @@ import TransactionForm from "../features/transactions/form/TransactionForm.tsx";
 import Pagination from "../features/transactions/pagination/Pagination.tsx";
 import useTransactions from "../features/transactions/useTransactions.ts";
 import { useTransactionsParams } from "../features/transactions/useTransactionsParams.ts";
+import useCategories from "../hooks/useCategories.ts";
+import { getCategoryId } from "../utils/SortAndCategories.ts";
 
 export interface ITransactionPages {
   transactions: Itransaction[];
@@ -18,10 +20,12 @@ function UserTransactions() {
   const { currentPage, currentSort, categoryFilter, searchFilter } =
     useTransactionsParams();
 
+  const { data: categories } = useCategories();
+
   const { isLoading, transactionsPage, error } = useTransactions(
     Number(currentPage),
     currentSort,
-    categoryFilter,
+    getCategoryId(categories || [], categoryFilter),
     searchFilter,
   );
 

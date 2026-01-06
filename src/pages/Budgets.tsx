@@ -1,6 +1,6 @@
 import Header from "../layout/Header.tsx";
-import Main from "../layout/Main.tsx";
 import ModalButton from "../components/ModalButton.tsx";
+import SpendingSummary from "../features/budgets/SpendingSummary.tsx";
 
 function Budgets() {
   return (
@@ -13,7 +13,9 @@ function Budgets() {
           </ModalButton>
         </div>
       </Header>
-      <Main></Main>
+      <main className="flex">
+        <SpendingSummary />
+      </main>
     </>
   );
 }

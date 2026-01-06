@@ -15,6 +15,7 @@ interface ISelectProps {
   options: ISelectOption[];
   value: string;
   handleChange: (value: string) => void;
+  disabled?: boolean;
 }
 
 function DropdownSelect({
@@ -22,6 +23,7 @@ function DropdownSelect({
   options,
   value,
   handleChange,
+  disabled = false,
   children,
 }: PropsWithChildren<ISelectProps>) {
   const optionsMap = convertToMap(options);
@@ -47,7 +49,7 @@ function DropdownSelect({
       </label>
 
       {/* Mobile view */}
-      <Listbox value={value} onChange={handleChange}>
+      <Listbox value={value} onChange={handleChange} disabled={disabled}>
         <ListboxButton className="md:hidden">{children}</ListboxButton>
         <ListboxOptions
           anchor="bottom"
@@ -58,7 +60,7 @@ function DropdownSelect({
       </Listbox>
 
       {/* Tablet+ view */}
-      <Listbox value={value} onChange={handleChange}>
+      <Listbox value={value} onChange={handleChange} disabled={disabled}>
         <ListboxButton className="border-beige-500 text-beige-500 text-preset-4 leading-preset-4 hover:text-grey-900 focus:text-grey-900 focus:border-grey-900 hidden w-full appearance-none items-center justify-between rounded-lg border px-250 py-150 hover:cursor-pointer focus:outline-none md:flex md:min-w-44">
           <span>{optionsMap[value]}</span>
           <IconCaretDown size={16} />

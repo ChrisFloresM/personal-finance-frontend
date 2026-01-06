@@ -7,7 +7,10 @@ import FormTemplate from "../../../components/formComponents/FormTemplate.tsx";
 import CheckboxInput from "../../../components/formComponents/CheckboxInput.tsx";
 import { type SubmitHandler, useForm } from "react-hook-form";
 import type { Itransaction } from "../TransactionsTable.tsx";
-import { categories } from "../../../utils/SortAndCategories.ts";
+import {
+  categoriesToSelectOption,
+  getCategoryId,
+} from "../../../utils/SortAndCategories.ts";
 import DateInput from "../../../components/formComponents/DateInput.tsx";
 import { avatars } from "./avatars.ts";
 import RadioGroupInput from "../../../components/formComponents/RadioGroupInput.tsx";
@@ -15,9 +18,26 @@ import { useCreateTransaction } from "../useCreateTransaction.ts";
 import toast from "react-hot-toast";
 import { useModalContext } from "../../../context/useModalContext.ts";
 import { useEditTransaction } from "../useEditTransaction.ts";
+import useCategories from "../../../hooks/useCategories.ts";
 
-export interface ItransactionForm extends Itransaction {
+export interface ItransactionForm {
+  transactionId: number;
+  avatar: string;
+  name: string;
+  category: string;
+  date: string;
+  amount: number;
+  recurring: boolean;
   transactionType: "income" | "expense";
+}
+
+export interface ITransactionRequestBody {
+  avatar: string;
+  name: string;
+  categoryId: number;
+  date: string;
+  amount: number;
+  recurring: boolean;
 }
 
 export interface ItransactionType {
@@ -39,6 +59,10 @@ function TransactionForm({
   isEditing = false,
   transactionData,
 }: ITransactionFormProps) {
+  const { isPending: categoriesLoading, data: remoteCategories } =
+    useCategories();
+  const categories = categoriesToSelectOption(remoteCategories);
+
   const {
     register,
     handleSubmit,
@@ -48,7 +72,7 @@ function TransactionForm({
     defaultValues: {
       avatar: transactionData?.avatar ?? avatars[0].src,
       name: transactionData?.name ?? "",
-      category: transactionData?.category ?? categories[0].value,
+      category: transactionData?.category?.key ?? categories[0].value,
       date: transactionData?.date ?? new Date().toISOString().split("T")[0],
       amount: transactionData?.amount ? Math.abs(transactionData.amount) : 0.0,
       recurring: transactionData?.recurring ?? false,
@@ -68,8 +92,18 @@ function TransactionForm({
   const { handleClose: closeModal } = useModalContext();
 
   const onSubmit: SubmitHandler<ItransactionForm> = (data) => {
+    const requestBody = {
+      avatar: data.avatar,
+      name: data.name,
+      categoryId: getCategoryId(remoteCategories ?? [], data.category),
+      date: data.date,
+      amount:
+        data.transactionType === "expense" ? data.amount * -1 : data.amount,
+      recurring: data.recurring,
+    };
+
     if (isEditing) {
-      mutateEdit(data, {
+      mutateEdit(requestBody, {
         onSuccess: successCallback,
         onError: errorCallback,
       });
@@ -77,7 +111,7 @@ function TransactionForm({
       return;
     }
 
-    mutate(data, {
+    mutate(requestBody, {
       onSuccess: successCallback,
       onError: errorCallback,
     });
@@ -126,6 +160,7 @@ function TransactionForm({
         name="category"
         defaultValue={categories[0].value}
         control={control}
+        disabled={categoriesLoading}
       />
       <DateInput
         name="date"

@@ -3,15 +3,11 @@ import type { Itransaction } from "./TransactionsTable.tsx";
 import TransactionForm from "./form/TransactionForm.tsx";
 import ModalButtonOption from "../../components/ModalButtonOption.tsx";
 import DeleteForm from "../../components/DeleteForm.tsx";
-import { categories, convertToMap } from "../../utils/SortAndCategories.ts";
 import { useDeleteTransaction } from "./useDeleteTransaction.ts";
 import toast from "react-hot-toast";
 
-const categoryMap: Record<string, string> = convertToMap(categories);
-
 function TransactionRow({ transaction }: { transaction: Itransaction }) {
   const { transactionId, avatar, name, date, category, amount } = transaction;
-  const categoryLabel = categoryMap[category];
 
   const { mutate, isPending } = useDeleteTransaction(transactionId);
 
@@ -40,10 +36,10 @@ function TransactionRow({ transaction }: { transaction: Itransaction }) {
           <span className="text-preset-4 text-grey-900 leading-preset-4 max-w-[120px] truncate font-bold md:max-w-full">
             {name}
           </span>
-          <span className="md:hidden">{categoryLabel}</span>
+          <span className="md:hidden">{category.label}</span>
         </div>
       </td>
-      <td className="col-span-1 hidden md:block">{categoryLabel}</td>
+      <td className="col-span-1 hidden md:block">{category.label}</td>
       <td className="col-span-1 hidden md:block">{formatDate(date)}</td>
       <td className="col-span-2 flex flex-col gap-50 md:col-span-1">
         <span

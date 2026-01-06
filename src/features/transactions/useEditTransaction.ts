@@ -1,6 +1,6 @@
 import useAccessToken from "../../hooks/useAccessToken.ts";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { ItransactionForm } from "./form/TransactionForm.tsx";
+import type { ITransactionRequestBody } from "./form/TransactionForm.tsx";
 import { API_BASE, editItem } from "../../services/apiService.ts";
 import type { Itransaction } from "./TransactionsTable.tsx";
 
@@ -11,8 +11,8 @@ export function useEditTransaction(transactionId: number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: ItransactionForm) =>
-      editItem<ItransactionForm, Itransaction>(
+    mutationFn: (data: ITransactionRequestBody) =>
+      editItem<ITransactionRequestBody, Itransaction>(
         `${API_ENDPOINT}/${transactionId}`,
         data,
         getToken(),

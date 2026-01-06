@@ -2,12 +2,13 @@ import TransactionsTableHead from "./TransactionTableHead.tsx";
 import TransactionsTableBody from "./TransactionsTableBody.tsx";
 import ErrorMessage from "../../components/ErrorMessage.tsx";
 import LoadingSpinner from "../../components/LoadingSpinner.tsx";
+import type { ICategory } from "../../hooks/useCategories.ts";
 
 export interface Itransaction {
   transactionId: number;
   avatar: string;
   name: string;
-  category: string;
+  category: ICategory;
   date: string;
   amount: number;
   recurring: boolean;

@@ -50,6 +50,8 @@ function PotForm({ isEditing = false, potData }: IPotFormProps) {
         onSuccess: successCallback,
         onError: errorCallback,
       });
+
+      return;
     }
 
     mutateEdit(data, {

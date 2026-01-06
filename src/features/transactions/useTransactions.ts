@@ -8,14 +8,14 @@ const API_ENDPOINT = `${API_BASE}/transactions`;
 interface ITransactionParams {
   page: number;
   sortBy: string;
-  category: string;
+  categoryId: number;
   search: string;
 }
 
 function useTransactions(
   pageNumber: number,
   sortBy: string,
-  categoryFilter: string,
+  categoryFilter: number,
   search: string,
 ) {
   const { getToken } = useAccessToken();
@@ -23,10 +23,11 @@ function useTransactions(
   const params: ITransactionParams = {
     page: pageNumber - 1,
     sortBy: sortBy,
-    category: categoryFilter,
+    categoryId: categoryFilter,
     search: search,
   };
 
+  console.log(params);
   const {
     isLoading,
     data: transactionsPage,

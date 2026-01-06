@@ -2,8 +2,12 @@ import IconSortMobile from "../../components/Icons/IconSortMobile.tsx";
 import IconFilterMobile from "../../components/Icons/IconFilterMobile.tsx";
 import DropdownSelect from "../../components/DropdownSelect.tsx";
 import SearchBar from "../../components/SearchBar.tsx";
-import { categories, sortOptions } from "../../utils/SortAndCategories.ts";
+import {
+  categoriesToSelectOption,
+  sortOptions,
+} from "../../utils/SortAndCategories.ts";
 import { useTransactionsParams } from "./useTransactionsParams.ts";
+import useCategories from "../../hooks/useCategories.ts";
 
 export interface ISelectOption {
   label: string;
@@ -16,6 +20,9 @@ function SearchAndFilter() {
     categoryFilter: filterCategory,
     updateSearchParams,
   } = useTransactionsParams();
+
+  const { isPending: categoriesLoading, data: remoteCategories } =
+    useCategories();
 
   return (
     <div>
@@ -46,8 +53,9 @@ function SearchAndFilter() {
             }
             options={[
               { label: "All Transactions", value: "ALL" },
-              ...categories,
+              ...categoriesToSelectOption(remoteCategories),
             ]}
+            disabled={categoriesLoading}
           >
             <IconFilterMobile size={20} />
           </DropdownSelect>

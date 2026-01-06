@@ -1,4 +1,5 @@
 import type { ISelectOption } from "../features/transactions/SearchAndFilter.tsx";
+import type { ICategory } from "../hooks/useCategories.ts";
 
 export const sortOptions: ISelectOption[] = [
   {
@@ -20,49 +21,6 @@ export const sortOptions: ISelectOption[] = [
   {
     label: "Lowest",
     value: "LOWEST",
-  },
-];
-
-export const categories: ISelectOption[] = [
-  {
-    label: "Entertainment",
-    value: "entertainment",
-  },
-  {
-    label: "Bills",
-    value: "bills",
-  },
-  {
-    label: "Groceries",
-    value: "groceries",
-  },
-  {
-    label: "Dinning Out",
-    value: "dinningOut",
-  },
-  {
-    label: "Transportation",
-    value: "transportation",
-  },
-  {
-    label: "Personal Care",
-    value: "personalCare",
-  },
-  {
-    label: "Education",
-    value: "education",
-  },
-  {
-    label: "Lifestyle",
-    value: "lifestyle",
-  },
-  {
-    label: "Shopping",
-    value: "shopping",
-  },
-  {
-    label: "General",
-    value: "general",
   },
 ];
 
@@ -92,4 +50,27 @@ export function convertToMap(options: ISelectOption[]): Record<string, string> {
     },
     {} as Record<string, string>,
   );
+}
+
+export function categoriesToSelectOption(
+  categories: ICategory[] | undefined,
+): ISelectOption[] {
+  if (!categories) {
+    return [];
+  }
+
+  return categories.map((category) => {
+    const newCat: ISelectOption = {
+      label: category.label,
+      value: category.key,
+    };
+    return newCat;
+  });
+}
+
+export function getCategoryId(
+  categories: ICategory[],
+  categoryKey: string,
+): number {
+  return categories.find((cat: ICategory) => cat.key === categoryKey)?.id ?? 0;
 }
