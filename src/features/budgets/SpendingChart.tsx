@@ -1,52 +1,21 @@
 import { Cell, Pie, PieChart } from "recharts";
+import type { IBudgetItem } from "../../pages/Budgets.tsx";
 
 interface ISpendingChartProps {
   isAnimationActive?: boolean;
+  budgetItems: IBudgetItem[];
 }
 
-interface IBudgetItem extends Record<string, unknown> {
-  id: number;
-  category: string;
-  maximum: number;
-  spent: number;
-  theme: string;
-}
-
-const budgetItems: IBudgetItem[] = [
-  {
-    id: 1,
-    category: "Entertainment",
-    maximum: 50,
-    spent: 15,
-    theme: "#277C68",
-  },
-  {
-    id: 2,
-    category: "Bills",
-    maximum: 750,
-    spent: 150,
-    theme: "#82C9D7",
-  },
-  {
-    id: 3,
-    category: "Dinning Out",
-    maximum: 75,
-    spent: 133.75,
-    theme: "#F2CDAC",
-  },
-  {
-    id: 4,
-    category: "Personal Care",
-    maximum: 100,
-    spent: 40,
-    theme: "#626070",
-  },
-];
-
-function SpendingChart({ isAnimationActive = true }: ISpendingChartProps) {
-  const totalSpent = budgetItems.reduce((tot, budget) => tot + budget.spent, 0);
+function SpendingChart({
+  isAnimationActive = true,
+  budgetItems,
+}: ISpendingChartProps) {
+  const totalSpent = budgetItems.reduce(
+    (tot, budget) => tot + budget.totalSpent,
+    0,
+  );
   const totalMaxiumum = budgetItems.reduce(
-    (tot, budget) => tot + budget.maximum,
+    (tot, budget) => tot + budget.budgetAmount,
     0,
   );
 
@@ -54,17 +23,16 @@ function SpendingChart({ isAnimationActive = true }: ISpendingChartProps) {
     <PieChart
       style={{
         width: "100%",
-        maxWidth: "364px",
-        maxHeight: "80vh",
-        aspectRatio: 1,
-        outline: "1px solid red",
+        maxWidth: "370px",
+        height: "280px",
+        margin: "auto",
       }}
       responsive
     >
       <Pie
         data={budgetItems}
-        dataKey="spent"
-        nameKey="category"
+        dataKey="totalSpent"
+        nameKey={(entry: IBudgetItem) => entry.category.key}
         outerRadius="65%"
         innerRadius="55%"
         stroke="none"
@@ -76,8 +44,8 @@ function SpendingChart({ isAnimationActive = true }: ISpendingChartProps) {
       </Pie>
       <Pie
         data={budgetItems}
-        dataKey="spent"
-        nameKey="category"
+        dataKey="totalSpent"
+        nameKey={(entry: IBudgetItem) => entry.category.key}
         innerRadius="65%"
         stroke="none"
         isAnimationActive={isAnimationActive}
@@ -89,7 +57,7 @@ function SpendingChart({ isAnimationActive = true }: ISpendingChartProps) {
           x="50%"
           y="48%"
           textAnchor="middle"
-          fontSize="32"
+          fontSize="24"
           fontWeight="bold"
           fill="#201F24"
         >
