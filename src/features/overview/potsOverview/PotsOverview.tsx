@@ -1,5 +1,5 @@
 import ContentCard from "../ContentCard.tsx";
-import CardHeader from "../CardHeader.tsx";
+import CardHeaderWithLink from "../../../components/CardHeaderWithLink.tsx";
 import { type IPotItem } from "../../pots/Pot.tsx";
 import PotsTotal from "./PotsTotal.tsx";
 import PotsStats from "./PotsStats.tsx";
@@ -46,9 +46,9 @@ const rawPots: IPotItem[] = [
 function PotsOverview() {
   return (
     <ContentCard gapSize="small">
-      <CardHeader btnText="See Details" navigatePath="/pots">
+      <CardHeaderWithLink btnText="See Details" navigatePath="/pots">
         Pots
-      </CardHeader>
+      </CardHeaderWithLink>
       <div className="flex flex-col gap-250 md:flex-row">
         <PotsTotal potsItems={rawPots} />
         <PotsStats potsItems={rawPots} />

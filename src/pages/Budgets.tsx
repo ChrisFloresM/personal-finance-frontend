@@ -4,6 +4,7 @@ import SpendingSummary from "../features/budgets/SpendingSummary.tsx";
 import useBudgets from "../features/budgets/useBudgets.tsx";
 import LoadingSpinner from "../components/LoadingSpinner.tsx";
 import type { ICategory } from "../hooks/useCategories.ts";
+import BudgetsList from "../features/budgets/BudgetsList.tsx";
 
 export interface IBudgetItem extends Record<string, unknown> {
   id: number;
@@ -90,7 +91,10 @@ function Budgets() {
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          <SpendingSummary budgetItems={budgetItems} />
+          <div className="grid w-full grid-cols-1 gap-300 md:grid-cols-10">
+            <SpendingSummary budgetItems={budgetItems} />
+            <BudgetsList budgetItems={budgetItems} />
+          </div>
         )}
       </main>
     </>

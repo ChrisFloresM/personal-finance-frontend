@@ -1,13 +1,13 @@
 import ContentCard from "../ContentCard.tsx";
-import CardHeader from "../CardHeader.tsx";
+import CardHeaderWithLink from "../../../components/CardHeaderWithLink.tsx";
 import TransactionsList from "./TransactionsList.tsx";
 
 function TransactionsOverview() {
   return (
     <ContentCard gapSize="medium" fillSpace={true}>
-      <CardHeader btnText="View All" navigatePath="/transactions">
+      <CardHeaderWithLink btnText="View All" navigatePath="/transactions">
         Transactions
-      </CardHeader>
+      </CardHeaderWithLink>
       <TransactionsList />
     </ContentCard>
   );

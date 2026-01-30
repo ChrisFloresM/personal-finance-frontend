@@ -7,8 +7,8 @@ interface SpendingSummaryProps {
 
 function SpendingSummary({ budgetItems }: SpendingSummaryProps) {
   return (
-    <div className="grid w-full grid-cols-1 gap-300 md:grid-cols-10">
-      <div className="flex flex-col gap-400 rounded-lg bg-white p-400 md:col-span-4">
+    <>
+      <div className="flex flex-col gap-400 self-start rounded-lg bg-white p-400 md:col-span-4">
         <SpendingChart budgetItems={budgetItems} />
         <div className="w-full space-y-300">
           <h2 className="text-preset-2 leading-preset-2 text-grey-900 font-bold">
@@ -21,8 +21,7 @@ function SpendingSummary({ budgetItems }: SpendingSummaryProps) {
           </ul>
         </div>
       </div>
-      <div className="rounded-lg bg-white md:col-span-6"></div>
-    </div>
+    </>
   );
 }
 

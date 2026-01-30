@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import IconCaretRight from "../../components/Icons/IconCaretRight.tsx";
+import IconCaretRight from "./Icons/IconCaretRight.tsx";
 import { useNavigate } from "react-router";
 
 interface ICardHeaderProps {
@@ -7,7 +7,7 @@ interface ICardHeaderProps {
   navigatePath: string;
 }
 
-function CardHeader({
+function CardHeaderWithLink({
   btnText,
   navigatePath,
   children,
@@ -37,4 +37,4 @@ function CardHeader({
   );
 }
 
-export default CardHeader;
+export default CardHeaderWithLink;
