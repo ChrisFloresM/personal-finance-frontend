@@ -25,11 +25,14 @@ export function useTransactionsParams(): ITransactionsParams {
         return;
       }
 
-      setSearchParams((params) => {
-        const newParams = new URLSearchParams(params);
-        newParams.set(param, value);
-        return newParams;
-      });
+      setSearchParams(
+        (params) => {
+          const newParams = new URLSearchParams(params);
+          newParams.set(param, value);
+          return newParams;
+        },
+        { replace: true },
+      );
     },
     [searchParams, setSearchParams],
   );

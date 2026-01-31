@@ -1,20 +1,20 @@
 import useAccessToken from "../../hooks/useAccessToken.ts";
 import { useQuery } from "@tanstack/react-query";
 import { API_BASE, getItems } from "../../services/apiService.ts";
-import type { IBudgetItem } from "../../pages/Budgets.tsx";
+import type { IBudgetItemWList } from "../../pages/Budgets.tsx";
 
-const API_ENDPOINT = `${API_BASE}/budgets`;
+const API_ENDPOINT = `${API_BASE}/budgets/overview`;
 
-function useBudgets() {
+function useBudgetsWTransactions() {
   const { getToken } = useAccessToken();
 
   const { isLoading, data, error } = useQuery({
-    queryKey: ["budgets"],
+    queryKey: ["budgets", "with-transactions"],
     queryFn: () =>
-      getItems<IBudgetItem[], object>(API_ENDPOINT, {}, getToken()),
+      getItems<IBudgetItemWList[], object>(API_ENDPOINT, {}, getToken()),
   });
 
   return { isLoading, data, error };
 }
 
-export default useBudgets;
+export default useBudgetsWTransactions;
