@@ -5,7 +5,8 @@ import LoadingSpinner from "../components/LoadingSpinner.tsx";
 import type { ICategory } from "../hooks/useCategories.ts";
 import BudgetsList from "../features/budgets/BudgetsList.tsx";
 import type { Itransaction } from "../features/transactions/TransactionsTable.tsx";
-import useBudgetsWTransactions from "../features/budgets/useBudgets.tsx";
+import useBudgetsWTransactions from "../features/budgets/useBudgets.ts";
+import BudgetForm from "../features/budgets/form/BudgetForm.tsx";
 
 export interface IBudgetItem extends Record<string, unknown> {
   id: number;
@@ -34,7 +35,7 @@ function Budgets() {
         <h1>Budgets</h1>
         <div>
           <ModalButton buttonTitle="+Add New Budget" variation="primary">
-            <p>Add new Budget</p>
+            <BudgetForm />
           </ModalButton>
         </div>
       </Header>
