@@ -5,6 +5,10 @@ import type { IBudgetItemWList } from "../../pages/Budgets.tsx";
 import BudgetTransactions from "./BudgetTransactions.tsx";
 import BudgetSummary from "./BudgetSummary.tsx";
 import BudgetProgress from "./BudgetProgress.tsx";
+import { useModalContext } from "../../context/useModalContext.ts";
+import BudgetForm from "./form/BudgetForm.tsx";
+import DeleteForm from "../../components/DeleteForm.tsx";
+import { useDeleteBudget } from "./UseDeleteBudget.ts";
 
 interface IBudgetCardProps {
   budget: IBudgetItemWList;
@@ -12,6 +16,7 @@ interface IBudgetCardProps {
 
 function BudgetCard({ budget }: IBudgetCardProps) {
   const {
+    id,
     category: { label: categoryLabel, key: categoryKey },
     theme,
     budgetAmount,
@@ -19,15 +24,25 @@ function BudgetCard({ budget }: IBudgetCardProps) {
     latestTransactions,
   } = budget;
 
+  const { handleOpen } = useModalContext();
+
+  const { mutate, isPending } = useDeleteBudget(id);
+
   const remainingPercentage = 100 - (totalSpent / budgetAmount) * 100;
   const remaining = budgetAmount - totalSpent;
 
   function handleOpenEdit() {
-    console.log("open");
+    handleOpen(<BudgetForm budgetData={budget} isEditing />);
   }
 
   function handleOpenDelete() {
-    console.log("delete");
+    handleOpen(
+      <DeleteForm
+        itemName={`Budget for ${categoryLabel} `}
+        mutateFn={mutate}
+        isPending={isPending}
+      />,
+    );
   }
 
   return (

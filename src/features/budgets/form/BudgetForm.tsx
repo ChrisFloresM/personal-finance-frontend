@@ -101,7 +101,7 @@ function BudgetForm({ isEditing = false, budgetData }: IBudgetFormProps) {
         <DropdownInput
           options={categories}
           name="category"
-          defaultValue={categories[0].value}
+          defaultValue={budgetData?.category.key ?? categories[0].value}
           control={control}
           disabled={categoriesLoading}
         />
