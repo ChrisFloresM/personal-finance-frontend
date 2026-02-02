@@ -4,9 +4,14 @@ import BudgetCategoryRow from "./BudgetCategoryRow.tsx";
 
 interface SpendingSummaryProps {
   budgetItems: IBudgetItem[];
+  reducedList?: boolean;
 }
 
-function SpendingSummary({ budgetItems }: SpendingSummaryProps) {
+function SpendingSummary({
+  budgetItems,
+  reducedList = false,
+}: SpendingSummaryProps) {
+  const budgetList = reducedList ? budgetItems.slice(0, 2) : budgetItems;
   return (
     <>
       <div className="flex flex-col gap-400 self-start rounded-lg bg-white p-400 md:col-span-4">
@@ -16,7 +21,7 @@ function SpendingSummary({ budgetItems }: SpendingSummaryProps) {
             Spending Summary
           </h2>
           <ul className="divide-grey-100 @container divide-y">
-            {budgetItems.map((item: IBudgetItem) => (
+            {budgetList.map((item: IBudgetItem) => (
               <BudgetCategoryRow key={item.id} budgetItem={item} />
             ))}
           </ul>

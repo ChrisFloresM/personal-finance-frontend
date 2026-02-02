@@ -27,7 +27,6 @@ function useTransactions(
     search: search,
   };
 
-  console.log(params);
   const {
     isLoading,
     data: transactionsPage,

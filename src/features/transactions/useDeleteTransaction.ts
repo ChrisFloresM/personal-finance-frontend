@@ -13,6 +13,7 @@ export function useDeleteTransaction(transactionId: number) {
       deleteItem(`${API_ENDPOINT}/${transactionId}`, getToken()),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["budgets"] });
     },
   });
 }

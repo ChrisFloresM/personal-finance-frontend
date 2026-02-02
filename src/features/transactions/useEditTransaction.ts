@@ -19,6 +19,7 @@ export function useEditTransaction(transactionId: number) {
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["transactions"] });
+      queryClient.invalidateQueries({ queryKey: ["budgets"] });
     },
   });
 }

@@ -24,7 +24,6 @@ function Content() {
 function BudgetsOverview() {
   const { isLoading, data, error } = useBudgets();
 
-  console.log(data);
   const budgetItems = data || [];
 
   if (error) {
@@ -44,7 +43,7 @@ function BudgetsOverview() {
         {isLoading ? (
           <LoadingSpinner />
         ) : (
-          <SpendingSummary budgetItems={budgetItems} />
+          <SpendingSummary budgetItems={budgetItems} reducedList />
         )}
       </div>
     </ContentCard>
