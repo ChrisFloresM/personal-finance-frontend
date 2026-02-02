@@ -5,7 +5,7 @@ import LoadingSpinner from "../components/LoadingSpinner.tsx";
 import type { ICategory } from "../hooks/useCategories.ts";
 import BudgetsList from "../features/budgets/BudgetsList.tsx";
 import type { Itransaction } from "../features/transactions/TransactionsTable.tsx";
-import useBudgetsWTransactions from "../features/budgets/useBudgets.ts";
+import useBudgetsWTransactions from "../features/budgets/useBudgetsWTransactions.ts";
 import BudgetForm from "../features/budgets/form/BudgetForm.tsx";
 
 export interface IBudgetItem extends Record<string, unknown> {

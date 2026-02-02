@@ -1,5 +1,11 @@
 import PotsOverview from "./potsOverview/PotsOverview.tsx";
 import TransactionsOverview from "./transactionsOverview/TransactionsOverview.tsx";
+import ContentCard from "./ContentCard.tsx";
+import CardHeaderWithLink from "../../components/CardHeaderWithLink.tsx";
+import useBudgets from "../budgets/useBudgetsWTransactions.ts";
+import SpendingSummary from "../budgets/SpendingSummary.tsx";
+import LoadingSpinner from "../../components/LoadingSpinner.tsx";
+import ErrorMessage from "../../components/ErrorMessage.tsx";
 
 function Content() {
   return (
@@ -8,7 +14,40 @@ function Content() {
         <PotsOverview />
         <TransactionsOverview />
       </div>
+      <div className="col-span-2 self-stretch">
+        <BudgetsOverview />
+      </div>
     </section>
+  );
+}
+
+function BudgetsOverview() {
+  const { isLoading, data, error } = useBudgets();
+
+  console.log(data);
+  const budgetItems = data || [];
+
+  if (error) {
+    return (
+      <ErrorMessage>
+        Error obtaining data from the server: {error.message}
+      </ErrorMessage>
+    );
+  }
+
+  return (
+    <ContentCard gapSize="small">
+      <CardHeaderWithLink btnText="See Details" navigatePath="/budgets">
+        Budgets
+      </CardHeaderWithLink>
+      <div>
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <SpendingSummary budgetItems={budgetItems} />
+        )}
+      </div>
+    </ContentCard>
   );
 }
 

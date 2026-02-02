@@ -13,7 +13,7 @@ function ContentCard({
   const gap = gapSize === "small" ? "gap-250" : "gap-400";
   return (
     <div
-      className={`${gap} ${fillSpace && "flex-1"} relative flex flex-col rounded-xl bg-white px-250 py-300 md:p-400`}
+      className={`${gap} ${fillSpace && "flex-1"} relative flex h-full flex-col rounded-xl bg-white px-250 py-300 md:p-400`}
     >
       {children}
     </div>
