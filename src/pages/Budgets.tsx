@@ -7,6 +7,7 @@ import BudgetsList from "../features/budgets/BudgetsList.tsx";
 import type { Itransaction } from "../features/transactions/TransactionsTable.tsx";
 import useBudgetsWTransactions from "../features/budgets/useBudgetsWTransactions.ts";
 import BudgetForm from "../features/budgets/form/BudgetForm.tsx";
+import ErrorMessage from "../components/ErrorMessage.tsx";
 
 export interface IBudgetItem extends Record<string, unknown> {
   id: number;
@@ -44,8 +45,14 @@ function Budgets() {
           <LoadingSpinner />
         ) : (
           <div className="grid w-full grid-cols-1 gap-300 md:grid-cols-10">
-            <SpendingSummary budgetItems={budgetItems} />
-            <BudgetsList budgetItems={budgetItems} />
+            {budgetItems.length == 0 ? (
+              <ErrorMessage>You have no budgets created </ErrorMessage>
+            ) : (
+              <>
+                <SpendingSummary budgetItems={budgetItems} />
+                <BudgetsList budgetItems={budgetItems} />
+              </>
+            )}
           </div>
         )}
       </main>

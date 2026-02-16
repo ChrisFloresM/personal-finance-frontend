@@ -36,6 +36,14 @@ function TransactionsList() {
     );
   }
 
+  if (!transactions || transactions.length == 0) {
+    return (
+      <p className="text-preset-4 leading-preset-4 text-grey-500 text-center">
+        You have no transactions yet
+      </p>
+    );
+  }
+
   return (
     <ul className="divide-grey-100 divide-y">
       {transactions.map((transaction) => (
