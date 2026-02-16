@@ -3,7 +3,6 @@ import IconNavOverview from "../../components/Icons/IconNavOverview.tsx";
 import IconNavTransactions from "../../components/Icons/IconNavTransactions.tsx";
 import IconNavBudgets from "../../components/Icons/IconNavBudgets.tsx";
 import IconNavPots from "../../components/Icons/IconNavPots.tsx";
-import IconNavBills from "../../components/Icons/IconNavBills.tsx";
 
 interface INavigationProps {
   isCollapsed: boolean;
@@ -33,14 +32,6 @@ function Navigation({ isCollapsed }: INavigationProps) {
 
       <NavigationItem text="Pots" to="/pots" isCollapsed={isCollapsed}>
         <IconNavPots size={24} />
-      </NavigationItem>
-
-      <NavigationItem
-        text="Recurring bills"
-        to="/recurring-bills"
-        isCollapsed={isCollapsed}
-      >
-        <IconNavBills size={24} />
       </NavigationItem>
     </nav>
   );
